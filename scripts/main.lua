@@ -27,9 +27,13 @@ local nvgImageCache = {}   -- imagePath -> nvg image handle
 local viewMode = "topdown"
 local BASE_TILE_W_HALF = 32
 local BASE_TILE_H_HALF = 16
+local BASE_TD_TILE_W = 40
+local BASE_TD_TILE_H = 40
 local zoom = 1.0
 local tileWH = BASE_TILE_W_HALF * zoom
 local tileHH = BASE_TILE_H_HALF * zoom
+local tdTileW = BASE_TD_TILE_W * zoom
+local tdTileH = BASE_TD_TILE_H * zoom
 
 -- ============================================================================
 -- 生命周期
@@ -165,9 +169,13 @@ end
 local function mapToScreen(mx, my, camX, camY)
     local ix = mx - 1
     local iy = my - 1
-    local sx = (ix - iy) * tileWH + camX
-    local sy = (ix + iy) * tileHH + camY
-    return sx, sy
+    if viewMode == "topdown" then
+        return ix * tdTileW + camX, iy * tdTileH + camY
+    else
+        local sx = (ix - iy) * tileWH + camX
+        local sy = (ix + iy) * tileHH + camY
+        return sx, sy
+    end
 end
 
 --- 使用 NanoVG 绘制单个瓦片贴图
@@ -196,7 +204,12 @@ local function drawImageTile(cx, cy, imgInfo, tileType, flipH)
         scaleFactor = scaleFactor * 1.015
     end
 
-    local pxScale = (tileWH * 2 / 64) * scaleFactor
+    local pxScale
+    if viewMode == "topdown" then
+        pxScale = (tdTileW / 64) * scaleFactor
+    else
+        pxScale = (tileWH * 2 / 64) * scaleFactor
+    end
 
     -- 获取整张图片的实际尺寸
     local fullW, fullH = nvgImageSize(vg_, imgHandle)
@@ -239,10 +252,14 @@ local function drawImageTile(cx, cy, imgInfo, tileType, flipH)
     -- 普通绘制
     local drawX = cx - drawW / 2
     local drawY
-    if renderMode == "floor" then
+    if renderMode == "floor" or (renderMode == "flat" and viewMode == "topdown") then
         drawY = cy - drawH / 2
     else
-        drawY = (cy + tileHH) - drawH
+        if viewMode == "topdown" then
+            drawY = (cy + tdTileH / 2) - drawH
+        else
+            drawY = (cy + tileHH) - drawH
+        end
     end
 
     nvgSave(vg_)
@@ -330,8 +347,23 @@ function HandleMapRender(eventType, eventData)
                 local tileType = tileDict[tile.id] or {}
                 local renderMode = tileType.renderMode or "vertical"
 
-                local footYVal = cy + tileHH
                 local isFlat = (renderMode == "flat" or renderMode == "floor")
+                local footYVal
+                if viewMode == "topdown" then
+                    if isFlat then
+                        local scaleFactor = tileType.scale or 1.0
+                        if not tileType.scale then scaleFactor = scaleFactor * 1.015 end
+                        local pxScale = (tdTileW / 64) * scaleFactor
+                        local srcH = 64
+                        if tileType.rect then srcH = tileType.rect.h end
+                        local drawH = srcH * pxScale
+                        footYVal = cy + drawH / 2
+                    else
+                        footYVal = cy + tdTileH / 2
+                    end
+                else
+                    footYVal = cy + tileHH
+                end
 
                 table.insert(sortList, {
                     cx = cx, cy = cy,
@@ -351,6 +383,7 @@ function HandleMapRender(eventType, eventData)
         if a.isFlat ~= b.isFlat then return a.isFlat end
         if a.isFlat and b.isFlat then
             if a.li ~= b.li then return a.li < b.li end
+            if viewMode == "topdown" and a.footY ~= b.footY then return a.footY < b.footY end
         end
         if a.footY ~= b.footY then return a.footY < b.footY end
         if a.footX ~= b.footX then return a.footX < b.footX end
