@@ -5,7 +5,6 @@
 -- ============================================================================
 
 local UI = require("urhox-libs/UI")
-local cjson = require("cjson")
 
 -- ============================================================================
 -- 全局变量
@@ -78,7 +77,7 @@ function CreateGameContent()
 
     local jsonStr = f:ReadString()
     f:Close()
-    mapData = cjson.decode(jsonStr)
+    mapData = JsonDecode(jsonStr)
 
     if mapData.imageRegistry then
         for _, reg in ipairs(mapData.imageRegistry) do
