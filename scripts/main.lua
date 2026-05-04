@@ -118,14 +118,7 @@ function CreateUI()
         height = "100%",
         justifyContent = "center",
         alignItems = "center",
-        pointerEvents = "box-none",
-        children = {
-            UI.Label {
-                text = CONFIG.Title,
-                fontSize = 24,
-                fontColor = { 255, 255, 255, 255 },
-            },
-        }
+        pointerEvents = "box-none"
     }
 
     UI.SetRoot(uiRoot_)
