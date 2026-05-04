@@ -24,7 +24,7 @@ local vg_ = nil
 ---@type table<string, integer>
 local nvgImageCache = {}   -- imagePath -> nvg image handle
 
-local viewMode = "iso"
+local viewMode = "topdown"
 local BASE_TILE_W_HALF = 32
 local BASE_TILE_H_HALF = 16
 local zoom = 1.0
