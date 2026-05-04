@@ -1,7 +1,7 @@
 -- ============================================================================
--- 空项目脚手架
--- 用途: 最小化项目起点，按需扩展
+-- 等距地图渲染器
 -- UI 系统: urhox-libs/UI (Yoga Flexbox + NanoVG, 40+ 内置控件)
+-- 地图渲染: 独立 NanoVG 上下文（低 renderOrder，绘制在 UI 下方）
 -- ============================================================================
 
 local UI = require("urhox-libs/UI")
@@ -18,7 +18,11 @@ local CONFIG = {
 -- 地图相关变量
 local mapData = nil
 local tileDict = {}
-local textureCache = {}
+
+-- NanoVG 地图渲染上下文
+local vg_ = nil
+---@type table<string, integer>
+local nvgImageCache = {}   -- imagePath -> nvg image handle
 
 local viewMode = "iso"
 local BASE_TILE_W_HALF = 32
@@ -34,7 +38,15 @@ local tileHH = BASE_TILE_H_HALF * zoom
 function Start()
     graphics.windowTitle = CONFIG.Title
 
-    -- 初始化 UI 系统
+    -- 1. 创建地图渲染用的 NanoVG 上下文（低 renderOrder，绘制在 UI 下方）
+    vg_ = nvgCreate(1)
+    if not vg_ then
+        print("ERROR: Failed to create NanoVG context for map")
+        return
+    end
+    nvgSetRenderOrder(vg_, 0)  -- UI 是 999990，地图在最底层
+
+    -- 2. 初始化 UI 系统（UI 的 NVG 上下文由 UI.Init 内部创建，renderOrder=999990）
     UI.Init({
         fonts = {
             { family = "sans", weights = {
@@ -44,30 +56,38 @@ function Start()
         scale = UI.Scale.DEFAULT,
     })
 
-    -- 创建游戏内容
+    -- 3. 创建游戏内容（加载地图数据）
     CreateGameContent()
 
-    -- 创建 UI
+    -- 4. 创建 UI
     CreateUI()
 
-    -- 订阅事件
+    -- 5. 订阅事件
     SubscribeToEvent("Update", "HandleUpdate")
     SubscribeToEvent("KeyDown", "HandleKeyDown")
-    SubscribeToEvent("PostRenderUpdate", "HandlePostRenderUpdate")
+    SubscribeToEvent(vg_, "NanoVGRender", "HandleMapRender")
 
     print("=== Game Started: " .. CONFIG.Title .. " ===")
 end
 
 function Stop()
+    -- 清理 NanoVG 图片缓存
+    if vg_ then
+        for _, handle in pairs(nvgImageCache) do
+            nvgDeleteImage(vg_, handle)
+        end
+        nvgImageCache = {}
+        nvgDelete(vg_)
+        vg_ = nil
+    end
     UI.Shutdown()
 end
 
 -- ============================================================================
--- 游戏逻辑（在这里填充）
+-- 游戏逻辑
 -- ============================================================================
 
 function CreateGameContent()
-    -- 初始化游戏状态、数据等
     local path = "map.json"
     local f = cache:GetFile(path)
     if not f then
@@ -77,7 +97,7 @@ function CreateGameContent()
 
     local jsonStr = f:ReadString()
     f:Close()
-    mapData = JsonDecode(jsonStr)
+    mapData = cjson.decode(jsonStr)
 
     if mapData.imageRegistry then
         for _, reg in ipairs(mapData.imageRegistry) do
@@ -94,6 +114,7 @@ function CreateUI()
         height = "100%",
         justifyContent = "center",
         alignItems = "center",
+        pointerEvents = "box-none",
         children = {
             UI.Label {
                 text = CONFIG.Title,
@@ -121,8 +142,25 @@ function HandleKeyDown(eventType, eventData)
 end
 
 -- ============================================================================
--- 渲染逻辑
+-- NanoVG 地图渲染
 -- ============================================================================
+
+--- 获取或创建 NanoVG 图片句柄
+---@param imagePath string
+---@return integer  -- nvg image handle, 0 表示加载失败
+local function getNvgImage(imagePath)
+    if nvgImageCache[imagePath] then
+        return nvgImageCache[imagePath]
+    end
+    local handle = nvgCreateImage(vg_, imagePath, 0)
+    if handle <= 0 then
+        print("WARN: Failed to load image: " .. imagePath)
+        nvgImageCache[imagePath] = 0
+        return 0
+    end
+    nvgImageCache[imagePath] = handle
+    return handle
+end
 
 local function mapToScreen(mx, my, camX, camY)
     local ix = mx - 1
@@ -132,19 +170,14 @@ local function mapToScreen(mx, my, camX, camY)
     return sx, sy
 end
 
-local function getTexture(path)
-    if not textureCache[path] then
-        textureCache[path] = cache:GetResource("Texture2D", path)
-    end
-    return textureCache[path]
-end
-
+--- 使用 NanoVG 绘制单个瓦片贴图
 local function drawImageTile(cx, cy, imgInfo, tileType, flipH)
     if not tileType.imagePath then return end
-    
-    local texture = getTexture(tileType.imagePath)
-    if not texture then return end
 
+    local imgHandle = getNvgImage(tileType.imagePath)
+    if imgHandle <= 0 then return end
+
+    -- 确定源矩形（动画帧或静态）
     local sourceRect = nil
     if tileType.frames and #tileType.frames > 0 then
         local fps = tileType.fps or 10
@@ -158,28 +191,52 @@ local function drawImageTile(cx, cy, imgInfo, tileType, flipH)
 
     local scaleFactor = tileType.scale or 1.0
     local renderMode = tileType.renderMode or "vertical"
-    
+
     if (renderMode == "flat" or renderMode == "floor") and not tileType.scale then
         scaleFactor = scaleFactor * 1.015
     end
 
-    local pxScale = (tileWH * 2 / 64) * scaleFactor 
-    
-    local drawW = (sourceRect and sourceRect.w or imgInfo.w) * pxScale
-    local drawH = (sourceRect and sourceRect.h or imgInfo.h) * pxScale
+    local pxScale = (tileWH * 2 / 64) * scaleFactor
 
+    -- 获取整张图片的实际尺寸
+    local fullW, fullH = nvgImageSize(vg_, imgHandle)
+    if fullW == 0 or fullH == 0 then return end
+
+    -- 源区域参数
+    local srcX = sourceRect and sourceRect.x or 0
+    local srcY = sourceRect and sourceRect.y or 0
+    local srcW = sourceRect and sourceRect.w or fullW
+    local srcH = sourceRect and sourceRect.h or fullH
+
+    local drawW = srcW * pxScale
+    local drawH = srcH * pxScale
+
+    -- flat 渲染模式：等距投影变换
     if renderMode == "flat" and viewMode == "iso" then
-        graphics.Push()
-        graphics.Translate(cx, cy)
-        graphics.Scale(1, 0.5)
-        graphics.Scale(0.70710678, 0.70710678)
-        graphics.Rotate(-math.pi / 4)
-        if flipH then graphics.Scale(-1, 1) end
-        graphics.Draw(texture, -drawW / 2, -drawH / 2, sourceRect)
-        graphics.Pop()
+        nvgSave(vg_)
+        nvgTranslate(vg_, cx, cy)
+        nvgScale(vg_, 1, 0.5)
+        nvgScale(vg_, 0.70710678, 0.70710678)
+        nvgRotate(vg_, -math.pi / 4)
+        if flipH then nvgScale(vg_, -1, 1) end
+
+        -- 绘制图片：映射源区域到目标矩形
+        local patScaleX = drawW / srcW
+        local patScaleY = drawH / srcH
+        local patOX = -srcX * patScaleX - drawW / 2
+        local patOY = -srcY * patScaleY - drawH / 2
+        local imgPaint = nvgImagePattern(vg_, patOX, patOY,
+            fullW * patScaleX, fullH * patScaleY, 0, imgHandle, 1)
+        nvgBeginPath(vg_)
+        nvgRect(vg_, -drawW / 2, -drawH / 2, drawW, drawH)
+        nvgFillPaint(vg_, imgPaint)
+        nvgFill(vg_)
+
+        nvgRestore(vg_)
         return
     end
 
+    -- 普通绘制
     local drawX = cx - drawW / 2
     local drawY
     if renderMode == "floor" then
@@ -188,14 +245,47 @@ local function drawImageTile(cx, cy, imgInfo, tileType, flipH)
         drawY = (cy + tileHH) - drawH
     end
 
-    graphics.Draw(texture, drawX, drawY, sourceRect, flipH)
+    nvgSave(vg_)
+    if flipH then
+        -- 水平翻转：以绘制中心为轴
+        nvgTranslate(vg_, drawX + drawW, drawY)
+        nvgScale(vg_, -1, 1)
+        nvgTranslate(vg_, 0, 0)
+    end
+
+    -- 用 nvgImagePattern 将 spritesheet 中的源区域映射到目标矩形
+    local patScaleX = drawW / srcW
+    local patScaleY = drawH / srcH
+    local patOX = (flipH and 0 or drawX) - srcX * patScaleX
+    local patOY = (flipH and 0 or drawY) - srcY * patScaleY
+    local imgPaint = nvgImagePattern(vg_, patOX, patOY,
+        fullW * patScaleX, fullH * patScaleY, 0, imgHandle, 1)
+    nvgBeginPath(vg_)
+    if flipH then
+        nvgRect(vg_, 0, 0, drawW, drawH)
+    else
+        nvgRect(vg_, drawX, drawY, drawW, drawH)
+    end
+    nvgFillPaint(vg_, imgPaint)
+    nvgFill(vg_)
+
+    nvgRestore(vg_)
 end
 
-function HandlePostRenderUpdate(eventType, eventData)
-    if not mapData then return end
+--- NanoVGRender 事件回调 - 绘制等距地图
+function HandleMapRender(eventType, eventData)
+    if not vg_ or not mapData then return end
 
-    local camX = graphics.width / 2
-    local camY = graphics.height / 4
+    local screenW = graphics:GetWidth()
+    local screenH = graphics:GetHeight()
+    local dpr = graphics:GetDPR()
+    local logicalW = screenW / dpr
+    local logicalH = screenH / dpr
+
+    nvgBeginFrame(vg_, logicalW, logicalH, dpr)
+
+    local camX = logicalW / 2
+    local camY = logicalH / 4
     local ox, oy = 0, 0
 
     local width = mapData.width
@@ -204,19 +294,17 @@ function HandlePostRenderUpdate(eventType, eventData)
     -- Pass 1: 渲染地面层
     if mapData.layers and #mapData.layers > 0 then
         local groundLayer = mapData.layers[1]
-        
-        -- 对角线迭代以正确排序绘制地面
+
         for diag = 0, width + height - 2 do
             for ix = 0, diag do
                 local iy = diag - ix
                 if ix < width and iy < height then
                     local mx, my = ix + 1, iy + 1
-                    -- 寻找对应坐标的瓦片
                     for _, tile in ipairs(groundLayer.tiles) do
                         if tile.x == mx and tile.y == my then
                             local sx, sy = mapToScreen(tile.x, tile.y, camX, camY)
                             local tileType = tileDict[tile.id] or {}
-                            local imgInfo = { w = 64, h = 64 } -- 默认 fallback 大小
+                            local imgInfo = { w = 64, h = 64 }
                             if tileType.rect then
                                 imgInfo.w = tileType.rect.w
                                 imgInfo.h = tileType.rect.h
@@ -230,15 +318,15 @@ function HandlePostRenderUpdate(eventType, eventData)
         end
     end
 
-    -- Pass 2: 渲染物体层 (深度排序)
+    -- Pass 2: 渲染物体层（深度排序）
     local sortList = {}
-    
+
     if mapData.layers then
         for li = 2, #mapData.layers do
             for _, tile in ipairs(mapData.layers[li].tiles) do
                 local sx, sy = mapToScreen(tile.x, tile.y, camX, camY)
                 local cx, cy = sx + ox, sy + oy
-                
+
                 local tileType = tileDict[tile.id] or {}
                 local renderMode = tileType.renderMode or "vertical"
 
@@ -278,4 +366,6 @@ function HandlePostRenderUpdate(eventType, eventData)
         end
         drawImageTile(item.cx, item.cy, imgInfo, item.tileType, item.tile.flipH)
     end
+
+    nvgEndFrame(vg_)
 end
