@@ -1,0 +1,5023 @@
+{
+  "imageFolder": "Tiles",
+  "version": 4,
+  "imageRegistry": [
+    {
+      "scale": 1.3,
+      "frames": [
+        {
+          "y": 0,
+          "x": 0,
+          "w": 128,
+          "h": 128
+        },
+        {
+          "y": 0,
+          "x": 128,
+          "w": 128,
+          "h": 128
+        },
+        {
+          "y": 0,
+          "x": 256,
+          "w": 128,
+          "h": 128
+        },
+        {
+          "y": 0,
+          "x": 384,
+          "w": 128,
+          "h": 128
+        },
+        {
+          "y": 0,
+          "x": 512,
+          "w": 128,
+          "h": 128
+        },
+        {
+          "y": 0,
+          "x": 640,
+          "w": 128,
+          "h": 128
+        },
+        {
+          "y": 0,
+          "x": 768,
+          "w": 128,
+          "h": 128
+        },
+        {
+          "y": 0,
+          "x": 896,
+          "w": 128,
+          "h": 128
+        },
+        {
+          "y": 0,
+          "x": 1024,
+          "w": 128,
+          "h": 128
+        },
+        {
+          "y": 0,
+          "x": 1152,
+          "w": 128,
+          "h": 128
+        },
+        {
+          "y": 0,
+          "x": 1280,
+          "w": 128,
+          "h": 128
+        },
+        {
+          "y": 0,
+          "x": 1408,
+          "w": 128,
+          "h": 128
+        },
+        {
+          "y": 0,
+          "x": 1536,
+          "w": 128,
+          "h": 128
+        },
+        {
+          "y": 0,
+          "x": 1664,
+          "w": 128,
+          "h": 128
+        },
+        {
+          "y": 0,
+          "x": 1792,
+          "w": 128,
+          "h": 128
+        },
+        {
+          "y": 0,
+          "x": 1920,
+          "w": 128,
+          "h": 128
+        }
+      ],
+      "imagePath": "Tiles/water_wave.png",
+      "fps": 10,
+      "id": 100,
+      "name": "水波动画",
+      "renderMode": "flat"
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 101,
+      "name": "树篱-左上",
+      "rect": {
+        "y": 0,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 102,
+      "name": "树篱-上",
+      "rect": {
+        "y": 0,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 103,
+      "name": "树篱-右上",
+      "rect": {
+        "y": 0,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 104,
+      "name": "树篱-外右上",
+      "rect": {
+        "y": 0,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 105,
+      "name": "树篱B-左上",
+      "rect": {
+        "y": 0,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 106,
+      "name": "树篱B-上",
+      "rect": {
+        "y": 0,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 107,
+      "name": "树篱B-右上",
+      "rect": {
+        "y": 0,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 108,
+      "name": "树篱B-外右上",
+      "rect": {
+        "y": 0,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 109,
+      "name": "树篱-左",
+      "rect": {
+        "y": 64,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 110,
+      "name": "树篱-中",
+      "rect": {
+        "y": 64,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 111,
+      "name": "树篱-右",
+      "rect": {
+        "y": 64,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 112,
+      "name": "树篱-外右",
+      "rect": {
+        "y": 64,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 113,
+      "name": "树篱B-左",
+      "rect": {
+        "y": 64,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 114,
+      "name": "树篱B-中",
+      "rect": {
+        "y": 64,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 115,
+      "name": "树篱B-右",
+      "rect": {
+        "y": 64,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 116,
+      "name": "树篱B-外右",
+      "rect": {
+        "y": 64,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 117,
+      "name": "树篱-左下",
+      "rect": {
+        "y": 128,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 118,
+      "name": "树篱-下",
+      "rect": {
+        "y": 128,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 119,
+      "name": "树篱-右下",
+      "rect": {
+        "y": 128,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 120,
+      "name": "树篱-外右下",
+      "rect": {
+        "y": 128,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 121,
+      "name": "树篱B-左下",
+      "rect": {
+        "y": 128,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 122,
+      "name": "树篱B-下",
+      "rect": {
+        "y": 128,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 123,
+      "name": "树篱B-右下",
+      "rect": {
+        "y": 128,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 124,
+      "name": "树篱B-外右下",
+      "rect": {
+        "y": 128,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 125,
+      "name": "树篱-外左上",
+      "rect": {
+        "y": 192,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 126,
+      "name": "树篱-横",
+      "rect": {
+        "y": 192,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 127,
+      "name": "树篱-外左",
+      "rect": {
+        "y": 192,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 128,
+      "name": "树篱-外左下",
+      "rect": {
+        "y": 192,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 129,
+      "name": "石墙-左上",
+      "rect": {
+        "y": 192,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 130,
+      "name": "石墙-上",
+      "rect": {
+        "y": 192,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 131,
+      "name": "石墙-右上",
+      "rect": {
+        "y": 192,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 132,
+      "name": "石墙-外右上",
+      "rect": {
+        "y": 192,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 133,
+      "name": "树篱-树冠左",
+      "rect": {
+        "y": 256,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 134,
+      "name": "树篱-树冠右",
+      "rect": {
+        "y": 256,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 135,
+      "name": "石墙-左",
+      "rect": {
+        "y": 256,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 136,
+      "name": "石墙-中",
+      "rect": {
+        "y": 256,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 137,
+      "name": "石墙-右",
+      "rect": {
+        "y": 256,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 138,
+      "name": "石墙-外右",
+      "rect": {
+        "y": 256,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 139,
+      "name": "树篱-树干左",
+      "rect": {
+        "y": 320,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 140,
+      "name": "树篱-树干右",
+      "rect": {
+        "y": 320,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 141,
+      "name": "石墙-左下",
+      "rect": {
+        "y": 320,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 142,
+      "name": "石墙-下",
+      "rect": {
+        "y": 320,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 143,
+      "name": "石墙-右下",
+      "rect": {
+        "y": 320,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color1.png",
+      "id": 144,
+      "name": "石墙-外右下",
+      "rect": {
+        "y": 320,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 145,
+      "name": "树篱-左上",
+      "rect": {
+        "y": 0,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 146,
+      "name": "树篱-上",
+      "rect": {
+        "y": 0,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 147,
+      "name": "树篱-右上",
+      "rect": {
+        "y": 0,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 148,
+      "name": "树篱-外右上",
+      "rect": {
+        "y": 0,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 149,
+      "name": "树篱B-左上",
+      "rect": {
+        "y": 0,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 150,
+      "name": "树篱B-上",
+      "rect": {
+        "y": 0,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 151,
+      "name": "树篱B-右上",
+      "rect": {
+        "y": 0,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 152,
+      "name": "树篱B-外右上",
+      "rect": {
+        "y": 0,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 153,
+      "name": "树篱-左",
+      "rect": {
+        "y": 64,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 154,
+      "name": "树篱-中",
+      "rect": {
+        "y": 64,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 155,
+      "name": "树篱-右",
+      "rect": {
+        "y": 64,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 156,
+      "name": "树篱-外右",
+      "rect": {
+        "y": 64,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 157,
+      "name": "树篱B-左",
+      "rect": {
+        "y": 64,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 158,
+      "name": "树篱B-中",
+      "rect": {
+        "y": 64,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 159,
+      "name": "树篱B-右",
+      "rect": {
+        "y": 64,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 160,
+      "name": "树篱B-外右",
+      "rect": {
+        "y": 64,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 161,
+      "name": "树篱-左下",
+      "rect": {
+        "y": 128,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 162,
+      "name": "树篱-下",
+      "rect": {
+        "y": 128,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 163,
+      "name": "树篱-右下",
+      "rect": {
+        "y": 128,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 164,
+      "name": "树篱-外右下",
+      "rect": {
+        "y": 128,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 165,
+      "name": "树篱B-左下",
+      "rect": {
+        "y": 128,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 166,
+      "name": "树篱B-下",
+      "rect": {
+        "y": 128,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 167,
+      "name": "树篱B-右下",
+      "rect": {
+        "y": 128,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 168,
+      "name": "树篱B-外右下",
+      "rect": {
+        "y": 128,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 169,
+      "name": "树篱-外左上",
+      "rect": {
+        "y": 192,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 170,
+      "name": "树篱-横",
+      "rect": {
+        "y": 192,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 171,
+      "name": "树篱-外左",
+      "rect": {
+        "y": 192,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 172,
+      "name": "树篱-外左下",
+      "rect": {
+        "y": 192,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 173,
+      "name": "石墙-左上",
+      "rect": {
+        "y": 192,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 174,
+      "name": "石墙-上",
+      "rect": {
+        "y": 192,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 175,
+      "name": "石墙-右上",
+      "rect": {
+        "y": 192,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 176,
+      "name": "石墙-外右上",
+      "rect": {
+        "y": 192,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 177,
+      "name": "树篱-树冠左",
+      "rect": {
+        "y": 256,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 178,
+      "name": "树篱-树冠右",
+      "rect": {
+        "y": 256,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 179,
+      "name": "石墙-左",
+      "rect": {
+        "y": 256,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 180,
+      "name": "石墙-中",
+      "rect": {
+        "y": 256,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 181,
+      "name": "石墙-右",
+      "rect": {
+        "y": 256,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 182,
+      "name": "石墙-外右",
+      "rect": {
+        "y": 256,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 183,
+      "name": "树篱-树干左",
+      "rect": {
+        "y": 320,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 184,
+      "name": "树篱-树干右",
+      "rect": {
+        "y": 320,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 185,
+      "name": "石墙-左下",
+      "rect": {
+        "y": 320,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 186,
+      "name": "石墙-下",
+      "rect": {
+        "y": 320,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 187,
+      "name": "石墙-右下",
+      "rect": {
+        "y": 320,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color2.png",
+      "id": 188,
+      "name": "石墙-外右下",
+      "rect": {
+        "y": 320,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 189,
+      "name": "树篱-左上",
+      "rect": {
+        "y": 0,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 190,
+      "name": "树篱-上",
+      "rect": {
+        "y": 0,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 191,
+      "name": "树篱-右上",
+      "rect": {
+        "y": 0,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 192,
+      "name": "树篱-外右上",
+      "rect": {
+        "y": 0,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 193,
+      "name": "树篱B-左上",
+      "rect": {
+        "y": 0,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 194,
+      "name": "树篱B-上",
+      "rect": {
+        "y": 0,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 195,
+      "name": "树篱B-右上",
+      "rect": {
+        "y": 0,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 196,
+      "name": "树篱B-外右上",
+      "rect": {
+        "y": 0,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 197,
+      "name": "树篱-左",
+      "rect": {
+        "y": 64,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 198,
+      "name": "树篱-中",
+      "rect": {
+        "y": 64,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 199,
+      "name": "树篱-右",
+      "rect": {
+        "y": 64,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 200,
+      "name": "树篱-外右",
+      "rect": {
+        "y": 64,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 201,
+      "name": "树篱B-左",
+      "rect": {
+        "y": 64,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 202,
+      "name": "树篱B-中",
+      "rect": {
+        "y": 64,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 203,
+      "name": "树篱B-右",
+      "rect": {
+        "y": 64,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 204,
+      "name": "树篱B-外右",
+      "rect": {
+        "y": 64,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 205,
+      "name": "树篱-左下",
+      "rect": {
+        "y": 128,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 206,
+      "name": "树篱-下",
+      "rect": {
+        "y": 128,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 207,
+      "name": "树篱-右下",
+      "rect": {
+        "y": 128,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 208,
+      "name": "树篱-外右下",
+      "rect": {
+        "y": 128,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 209,
+      "name": "树篱B-左下",
+      "rect": {
+        "y": 128,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 210,
+      "name": "树篱B-下",
+      "rect": {
+        "y": 128,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 211,
+      "name": "树篱B-右下",
+      "rect": {
+        "y": 128,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 212,
+      "name": "树篱B-外右下",
+      "rect": {
+        "y": 128,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 213,
+      "name": "树篱-外左上",
+      "rect": {
+        "y": 192,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 214,
+      "name": "树篱-横",
+      "rect": {
+        "y": 192,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 215,
+      "name": "树篱-外左",
+      "rect": {
+        "y": 192,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 216,
+      "name": "树篱-外左下",
+      "rect": {
+        "y": 192,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 217,
+      "name": "石墙-左上",
+      "rect": {
+        "y": 192,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 218,
+      "name": "石墙-上",
+      "rect": {
+        "y": 192,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 219,
+      "name": "石墙-右上",
+      "rect": {
+        "y": 192,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 220,
+      "name": "石墙-外右上",
+      "rect": {
+        "y": 192,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 221,
+      "name": "树篱-树冠左",
+      "rect": {
+        "y": 256,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 222,
+      "name": "树篱-树冠右",
+      "rect": {
+        "y": 256,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 223,
+      "name": "石墙-左",
+      "rect": {
+        "y": 256,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 224,
+      "name": "石墙-中",
+      "rect": {
+        "y": 256,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 225,
+      "name": "石墙-右",
+      "rect": {
+        "y": 256,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 226,
+      "name": "石墙-外右",
+      "rect": {
+        "y": 256,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 227,
+      "name": "树篱-树干左",
+      "rect": {
+        "y": 320,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 228,
+      "name": "树篱-树干右",
+      "rect": {
+        "y": 320,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 229,
+      "name": "石墙-左下",
+      "rect": {
+        "y": 320,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 230,
+      "name": "石墙-下",
+      "rect": {
+        "y": 320,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 231,
+      "name": "石墙-右下",
+      "rect": {
+        "y": 320,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color3.png",
+      "id": 232,
+      "name": "石墙-外右下",
+      "rect": {
+        "y": 320,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 233,
+      "name": "树篱-左上",
+      "rect": {
+        "y": 0,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 234,
+      "name": "树篱-上",
+      "rect": {
+        "y": 0,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 235,
+      "name": "树篱-右上",
+      "rect": {
+        "y": 0,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 236,
+      "name": "树篱-外右上",
+      "rect": {
+        "y": 0,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 237,
+      "name": "树篱B-左上",
+      "rect": {
+        "y": 0,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 238,
+      "name": "树篱B-上",
+      "rect": {
+        "y": 0,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 239,
+      "name": "树篱B-右上",
+      "rect": {
+        "y": 0,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 240,
+      "name": "树篱B-外右上",
+      "rect": {
+        "y": 0,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 241,
+      "name": "树篱-左",
+      "rect": {
+        "y": 64,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 242,
+      "name": "树篱-中",
+      "rect": {
+        "y": 64,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 243,
+      "name": "树篱-右",
+      "rect": {
+        "y": 64,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 244,
+      "name": "树篱-外右",
+      "rect": {
+        "y": 64,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 245,
+      "name": "树篱B-左",
+      "rect": {
+        "y": 64,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 246,
+      "name": "树篱B-中",
+      "rect": {
+        "y": 64,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 247,
+      "name": "树篱B-右",
+      "rect": {
+        "y": 64,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 248,
+      "name": "树篱B-外右",
+      "rect": {
+        "y": 64,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 249,
+      "name": "树篱-左下",
+      "rect": {
+        "y": 128,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 250,
+      "name": "树篱-下",
+      "rect": {
+        "y": 128,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 251,
+      "name": "树篱-右下",
+      "rect": {
+        "y": 128,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 252,
+      "name": "树篱-外右下",
+      "rect": {
+        "y": 128,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 253,
+      "name": "树篱B-左下",
+      "rect": {
+        "y": 128,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 254,
+      "name": "树篱B-下",
+      "rect": {
+        "y": 128,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 255,
+      "name": "树篱B-右下",
+      "rect": {
+        "y": 128,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 256,
+      "name": "树篱B-外右下",
+      "rect": {
+        "y": 128,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 257,
+      "name": "树篱-外左上",
+      "rect": {
+        "y": 192,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 258,
+      "name": "树篱-横",
+      "rect": {
+        "y": 192,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 259,
+      "name": "树篱-外左",
+      "rect": {
+        "y": 192,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 260,
+      "name": "树篱-外左下",
+      "rect": {
+        "y": 192,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 261,
+      "name": "石墙-左上",
+      "rect": {
+        "y": 192,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 262,
+      "name": "石墙-上",
+      "rect": {
+        "y": 192,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 263,
+      "name": "石墙-右上",
+      "rect": {
+        "y": 192,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 264,
+      "name": "石墙-外右上",
+      "rect": {
+        "y": 192,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 265,
+      "name": "树篱-树冠左",
+      "rect": {
+        "y": 256,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 266,
+      "name": "树篱-树冠右",
+      "rect": {
+        "y": 256,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 267,
+      "name": "石墙-左",
+      "rect": {
+        "y": 256,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 268,
+      "name": "石墙-中",
+      "rect": {
+        "y": 256,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 269,
+      "name": "石墙-右",
+      "rect": {
+        "y": 256,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 270,
+      "name": "石墙-外右",
+      "rect": {
+        "y": 256,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 271,
+      "name": "树篱-树干左",
+      "rect": {
+        "y": 320,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 272,
+      "name": "树篱-树干右",
+      "rect": {
+        "y": 320,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 273,
+      "name": "石墙-左下",
+      "rect": {
+        "y": 320,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 274,
+      "name": "石墙-下",
+      "rect": {
+        "y": 320,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 275,
+      "name": "石墙-右下",
+      "rect": {
+        "y": 320,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color4.png",
+      "id": 276,
+      "name": "石墙-外右下",
+      "rect": {
+        "y": 320,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 277,
+      "name": "树篱-左上",
+      "rect": {
+        "y": 0,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 278,
+      "name": "树篱-上",
+      "rect": {
+        "y": 0,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 279,
+      "name": "树篱-右上",
+      "rect": {
+        "y": 0,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 280,
+      "name": "树篱-外右上",
+      "rect": {
+        "y": 0,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 281,
+      "name": "树篱B-左上",
+      "rect": {
+        "y": 0,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 282,
+      "name": "树篱B-上",
+      "rect": {
+        "y": 0,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 283,
+      "name": "树篱B-右上",
+      "rect": {
+        "y": 0,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 284,
+      "name": "树篱B-外右上",
+      "rect": {
+        "y": 0,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 285,
+      "name": "树篱-左",
+      "rect": {
+        "y": 64,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 286,
+      "name": "树篱-中",
+      "rect": {
+        "y": 64,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 287,
+      "name": "树篱-右",
+      "rect": {
+        "y": 64,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 288,
+      "name": "树篱-外右",
+      "rect": {
+        "y": 64,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 289,
+      "name": "树篱B-左",
+      "rect": {
+        "y": 64,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 290,
+      "name": "树篱B-中",
+      "rect": {
+        "y": 64,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 291,
+      "name": "树篱B-右",
+      "rect": {
+        "y": 64,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 292,
+      "name": "树篱B-外右",
+      "rect": {
+        "y": 64,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 293,
+      "name": "树篱-左下",
+      "rect": {
+        "y": 128,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 294,
+      "name": "树篱-下",
+      "rect": {
+        "y": 128,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 295,
+      "name": "树篱-右下",
+      "rect": {
+        "y": 128,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 296,
+      "name": "树篱-外右下",
+      "rect": {
+        "y": 128,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 297,
+      "name": "树篱B-左下",
+      "rect": {
+        "y": 128,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 298,
+      "name": "树篱B-下",
+      "rect": {
+        "y": 128,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 299,
+      "name": "树篱B-右下",
+      "rect": {
+        "y": 128,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 300,
+      "name": "树篱B-外右下",
+      "rect": {
+        "y": 128,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 301,
+      "name": "树篱-外左上",
+      "rect": {
+        "y": 192,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 302,
+      "name": "树篱-横",
+      "rect": {
+        "y": 192,
+        "x": 64,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 303,
+      "name": "树篱-外左",
+      "rect": {
+        "y": 192,
+        "x": 128,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 304,
+      "name": "树篱-外左下",
+      "rect": {
+        "y": 192,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 305,
+      "name": "石墙-左上",
+      "rect": {
+        "y": 192,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 306,
+      "name": "石墙-上",
+      "rect": {
+        "y": 192,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 307,
+      "name": "石墙-右上",
+      "rect": {
+        "y": 192,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 308,
+      "name": "石墙-外右上",
+      "rect": {
+        "y": 192,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 309,
+      "name": "树篱-树冠左",
+      "rect": {
+        "y": 256,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 310,
+      "name": "树篱-树冠右",
+      "rect": {
+        "y": 256,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 311,
+      "name": "石墙-左",
+      "rect": {
+        "y": 256,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 312,
+      "name": "石墙-中",
+      "rect": {
+        "y": 256,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 313,
+      "name": "石墙-右",
+      "rect": {
+        "y": 256,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 314,
+      "name": "石墙-外右",
+      "rect": {
+        "y": 256,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 315,
+      "name": "树篱-树干左",
+      "rect": {
+        "y": 320,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 316,
+      "name": "树篱-树干右",
+      "rect": {
+        "y": 320,
+        "x": 192,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 317,
+      "name": "石墙-左下",
+      "rect": {
+        "y": 320,
+        "x": 320,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 318,
+      "name": "石墙-下",
+      "rect": {
+        "y": 320,
+        "x": 384,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 319,
+      "name": "石墙-右下",
+      "rect": {
+        "y": 320,
+        "x": 448,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Tilemap_color5.png",
+      "id": 320,
+      "name": "石墙-外右下",
+      "rect": {
+        "y": 320,
+        "x": 512,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "scale": 1,
+      "frames": [
+        {
+          "y": 0,
+          "x": 0,
+          "w": 192,
+          "h": 256
+        },
+        {
+          "y": 0,
+          "x": 192,
+          "w": 192,
+          "h": 256
+        },
+        {
+          "y": 0,
+          "x": 384,
+          "w": 192,
+          "h": 256
+        },
+        {
+          "y": 0,
+          "x": 576,
+          "w": 192,
+          "h": 256
+        },
+        {
+          "y": 0,
+          "x": 768,
+          "w": 192,
+          "h": 256
+        },
+        {
+          "y": 0,
+          "x": 960,
+          "w": 192,
+          "h": 256
+        },
+        {
+          "y": 0,
+          "x": 1152,
+          "w": 192,
+          "h": 256
+        },
+        {
+          "y": 0,
+          "x": 1344,
+          "w": 192,
+          "h": 256
+        }
+      ],
+      "imagePath": "Tiles/Tree1.png",
+      "fps": 10,
+      "id": 321,
+      "name": "树",
+      "renderMode": "vertical"
+    },
+    {
+      "scale": 1.1,
+      "renderMode": "flat",
+      "imagePath": "Tiles/Water Background color.png",
+      "id": 322,
+      "name": "水背景",
+      "rect": {
+        "y": 0,
+        "x": 0,
+        "w": 64,
+        "h": 64
+      }
+    }
+  ],
+  "width": 8,
+  "layers": [
+    {
+      "locked": false,
+      "tiles": [
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 1,
+          "x": 1,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 1,
+          "x": 2,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 1,
+          "x": 3,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 1,
+          "x": 4,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 1,
+          "x": 5,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 1,
+          "x": 6,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 1,
+          "x": 7,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 1,
+          "x": 8,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 2,
+          "x": 1,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 2,
+          "x": 2,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 2,
+          "x": 3,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 2,
+          "x": 4,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 2,
+          "x": 5,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 2,
+          "x": 6,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 2,
+          "x": 7,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 2,
+          "x": 8,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 3,
+          "x": 1,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 3,
+          "x": 2,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 3,
+          "x": 3,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 3,
+          "x": 4,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 3,
+          "x": 5,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 3,
+          "x": 6,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 3,
+          "x": 7,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 3,
+          "x": 8,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 4,
+          "x": 1,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 4,
+          "x": 2,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 4,
+          "x": 3,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 4,
+          "x": 4,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 4,
+          "x": 5,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 4,
+          "x": 6,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 4,
+          "x": 7,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 4,
+          "x": 8,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 5,
+          "x": 1,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 5,
+          "x": 2,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 5,
+          "x": 3,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 5,
+          "x": 4,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 5,
+          "x": 5,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 5,
+          "x": 6,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 5,
+          "x": 7,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 5,
+          "x": 8,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 6,
+          "x": 1,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 6,
+          "x": 2,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 6,
+          "x": 3,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 6,
+          "x": 4,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 6,
+          "x": 5,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 6,
+          "x": 6,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 6,
+          "x": 7,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 6,
+          "x": 8,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 7,
+          "x": 1,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 7,
+          "x": 2,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 7,
+          "x": 3,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 7,
+          "x": 4,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 7,
+          "x": 5,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 7,
+          "x": 6,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 7,
+          "x": 7,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 7,
+          "x": 8,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 8,
+          "x": 1,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 8,
+          "x": 2,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 8,
+          "x": 3,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 8,
+          "x": 4,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 8,
+          "x": 5,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 8,
+          "x": 6,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 8,
+          "x": 7,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Water Background color.png",
+          "renderMode": "flat",
+          "id": 322,
+          "y": 8,
+          "x": 8,
+          "scale": 1.1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        }
+      ],
+      "opacity": 1,
+      "name": "地面",
+      "visible": true
+    },
+    {
+      "locked": false,
+      "tiles": [
+        {
+          "path": "Tiles/water_wave.png",
+          "id": 100,
+          "frames": [
+            {
+              "y": 0,
+              "x": 0,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 128,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 256,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 384,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 512,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 640,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 768,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 896,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1024,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1152,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1280,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1408,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1536,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1664,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1792,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1920,
+              "w": 128,
+              "h": 128
+            }
+          ],
+          "fps": 10,
+          "y": 3,
+          "x": 3,
+          "scale": 1.3,
+          "renderMode": "flat"
+        },
+        {
+          "path": "Tiles/water_wave.png",
+          "id": 100,
+          "frames": [
+            {
+              "y": 0,
+              "x": 0,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 128,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 256,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 384,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 512,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 640,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 768,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 896,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1024,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1152,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1280,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1408,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1536,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1664,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1792,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1920,
+              "w": 128,
+              "h": 128
+            }
+          ],
+          "fps": 10,
+          "y": 3,
+          "x": 4,
+          "scale": 1.3,
+          "renderMode": "flat"
+        },
+        {
+          "path": "Tiles/water_wave.png",
+          "id": 100,
+          "frames": [
+            {
+              "y": 0,
+              "x": 0,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 128,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 256,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 384,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 512,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 640,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 768,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 896,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1024,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1152,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1280,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1408,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1536,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1664,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1792,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1920,
+              "w": 128,
+              "h": 128
+            }
+          ],
+          "fps": 10,
+          "y": 3,
+          "x": 5,
+          "scale": 1.3,
+          "renderMode": "flat"
+        },
+        {
+          "path": "Tiles/water_wave.png",
+          "id": 100,
+          "frames": [
+            {
+              "y": 0,
+              "x": 0,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 128,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 256,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 384,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 512,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 640,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 768,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 896,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1024,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1152,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1280,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1408,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1536,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1664,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1792,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1920,
+              "w": 128,
+              "h": 128
+            }
+          ],
+          "fps": 10,
+          "y": 4,
+          "x": 3,
+          "scale": 1.3,
+          "renderMode": "flat"
+        },
+        {
+          "path": "Tiles/water_wave.png",
+          "id": 100,
+          "frames": [
+            {
+              "y": 0,
+              "x": 0,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 128,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 256,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 384,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 512,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 640,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 768,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 896,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1024,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1152,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1280,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1408,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1536,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1664,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1792,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1920,
+              "w": 128,
+              "h": 128
+            }
+          ],
+          "fps": 10,
+          "y": 4,
+          "x": 5,
+          "scale": 1.3,
+          "renderMode": "flat"
+        },
+        {
+          "path": "Tiles/water_wave.png",
+          "id": 100,
+          "frames": [
+            {
+              "y": 0,
+              "x": 0,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 128,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 256,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 384,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 512,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 640,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 768,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 896,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1024,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1152,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1280,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1408,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1536,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1664,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1792,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1920,
+              "w": 128,
+              "h": 128
+            }
+          ],
+          "fps": 10,
+          "y": 5,
+          "x": 3,
+          "scale": 1.3,
+          "renderMode": "flat"
+        },
+        {
+          "path": "Tiles/water_wave.png",
+          "id": 100,
+          "frames": [
+            {
+              "y": 0,
+              "x": 0,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 128,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 256,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 384,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 512,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 640,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 768,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 896,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1024,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1152,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1280,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1408,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1536,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1664,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1792,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1920,
+              "w": 128,
+              "h": 128
+            }
+          ],
+          "fps": 10,
+          "y": 5,
+          "x": 4,
+          "scale": 1.3,
+          "renderMode": "flat"
+        },
+        {
+          "path": "Tiles/water_wave.png",
+          "id": 100,
+          "frames": [
+            {
+              "y": 0,
+              "x": 0,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 128,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 256,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 384,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 512,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 640,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 768,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 896,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1024,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1152,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1280,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1408,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1536,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1664,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1792,
+              "w": 128,
+              "h": 128
+            },
+            {
+              "y": 0,
+              "x": 1920,
+              "w": 128,
+              "h": 128
+            }
+          ],
+          "fps": 10,
+          "y": 5,
+          "x": 5,
+          "scale": 1.3,
+          "renderMode": "flat"
+        }
+      ],
+      "opacity": 1,
+      "name": "物体",
+      "visible": true
+    },
+    {
+      "locked": false,
+      "tiles": [
+        {
+          "path": "Tiles/Tilemap_color3.png",
+          "renderMode": "flat",
+          "id": 189,
+          "y": 3,
+          "x": 3,
+          "scale": 1,
+          "rect": {
+            "y": 0,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Tilemap_color3.png",
+          "renderMode": "flat",
+          "id": 190,
+          "y": 3,
+          "x": 4,
+          "scale": 1,
+          "rect": {
+            "y": 0,
+            "x": 64,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Tilemap_color3.png",
+          "renderMode": "flat",
+          "id": 191,
+          "y": 3,
+          "x": 5,
+          "scale": 1,
+          "rect": {
+            "y": 0,
+            "x": 128,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Tilemap_color3.png",
+          "renderMode": "flat",
+          "id": 197,
+          "y": 4,
+          "x": 3,
+          "scale": 1,
+          "rect": {
+            "y": 64,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Tilemap_color3.png",
+          "renderMode": "flat",
+          "id": 198,
+          "y": 4,
+          "x": 4,
+          "scale": 1,
+          "rect": {
+            "y": 64,
+            "x": 64,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Tilemap_color3.png",
+          "renderMode": "flat",
+          "id": 199,
+          "y": 4,
+          "x": 5,
+          "scale": 1,
+          "rect": {
+            "y": 64,
+            "x": 128,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Tilemap_color3.png",
+          "renderMode": "flat",
+          "id": 205,
+          "y": 5,
+          "x": 3,
+          "scale": 1,
+          "rect": {
+            "y": 128,
+            "x": 0,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Tilemap_color3.png",
+          "renderMode": "flat",
+          "id": 206,
+          "y": 5,
+          "x": 4,
+          "scale": 1,
+          "rect": {
+            "y": 128,
+            "x": 64,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "path": "Tiles/Tilemap_color3.png",
+          "renderMode": "flat",
+          "id": 207,
+          "y": 5,
+          "x": 5,
+          "scale": 1,
+          "rect": {
+            "y": 128,
+            "x": 128,
+            "w": 64,
+            "h": 64
+          }
+        }
+      ],
+      "opacity": 1,
+      "name": "层 3",
+      "visible": true
+    },
+    {
+      "locked": false,
+      "tiles": [
+        {
+          "path": "Tiles/Tree1.png",
+          "id": 321,
+          "frames": [
+            {
+              "y": 0,
+              "x": 0,
+              "w": 192,
+              "h": 256
+            },
+            {
+              "y": 0,
+              "x": 192,
+              "w": 192,
+              "h": 256
+            },
+            {
+              "y": 0,
+              "x": 384,
+              "w": 192,
+              "h": 256
+            },
+            {
+              "y": 0,
+              "x": 576,
+              "w": 192,
+              "h": 256
+            },
+            {
+              "y": 0,
+              "x": 768,
+              "w": 192,
+              "h": 256
+            },
+            {
+              "y": 0,
+              "x": 960,
+              "w": 192,
+              "h": 256
+            },
+            {
+              "y": 0,
+              "x": 1152,
+              "w": 192,
+              "h": 256
+            },
+            {
+              "y": 0,
+              "x": 1344,
+              "w": 192,
+              "h": 256
+            }
+          ],
+          "fps": 10,
+          "y": 4,
+          "x": 4,
+          "scale": 1,
+          "renderMode": "vertical"
+        }
+      ],
+      "opacity": 1,
+      "name": "层 4",
+      "visible": true
+    }
+  ],
+  "height": 8,
+  "defaultWalkable": true,
+  "nextGroupId": 1,
+  "walkRules": {
+    "地面": true,
+    "墙壁": false
+  },
+  "showGrid": true
+}
