@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GIF 姿势检测与循环提取</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/pose.js" crossorigin="anonymous"></script>
+<style>
+  :root {
+    --accent: #6366f1;
+    --accent-light: #818cf8;
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --bg-card-hover: #334155;
+    --border: #334155;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+  }
+  body { background: var(--bg-dark); }
+  .upload-zone {
+    border: 2px dashed var(--border);
+    transition: all 0.3s;
+  }
+  .upload-zone:hover, .upload-zone.dragover {
+    border-color: var(--accent);
+    background: rgba(99, 102, 241, 0.05);
+  }
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; }
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--accent-light); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+  .heatmap-cell {
+    width: 12px; height: 12px;
+    border-radius: 2px;
+    transition: transform 0.1s;
+  }
+  .heatmap-cell:hover { transform: scale(1.5); z-index: 10; }
+  .progress-bar {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 3px;
+    transition: width 0.3s;
+  }
+  .frame-thumb {
+    width: 60px; height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .frame-thumb:hover, .frame-thumb.active {
+    border-color: var(--accent);
+    transform: scale(1.1);
+  }
+  .loop-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.2s;
+  }
+  .loop-card:hover { border-color: var(--accent-light); }
+  .skeleton-line {
+    position: absolute;
+    height: 2px;
+    background: rgba(99, 102, 241, 0.8);
+    transform-origin: left center;
+    border-radius: 1px;
+  }
+  .skeleton-dot {
+    position: absolute;
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    transform: translate(-3px, -3px);
+  }
+  .tooltip {
+    position: absolute;
+    background: #1e293b;
+    border: 1px solid #475569;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 12px;
+    pointer-events: none;
+    z-index: 100;
+    white-space: nowrap;
+  }
+  #loading-overlay {
+    position: fixed; inset: 0;
+    background: rgba(15, 23, 42, 0.9);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000;
+  }
+  .spinner {
+    width: 40px; height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .canvas-container { position: relative; display: inline-block; }
+  .canvas-container canvas { display: block; }
+  #pose-overlay {
+    position: absolute; top: 0; left: 0;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body class="text-gray-100 min-h-screen">
+
+<div id="loading-overlay">
+  <div class="text-center">
+    <div class="spinner mx-auto mb-4"></div>
+    <p class="text-gray-300" id="loading-text">正在加载姿势检测模型...</p>
+  </div>
+</div>
+
+<div class="max-w-6xl mx-auto px-4 py-8">
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold text-white mb-2">GIF 姿势检测与循环提取</h1>
+    <p class="text-gray-400">上传 GIF 动画，自动检测角色姿势，识别循环动画帧序列并导出</p>
+  </header>
+
+  <section id="upload-section" class="mb-8">
+    <div id="upload-zone" class="upload-zone rounded-xl p-12 text-center cursor-pointer">
+      <svg class="mx-auto mb-4 w-16 h-16 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+      </svg>
+      <p class="text-gray-300 text-lg mb-2">拖拽 GIF 文件到此处，或点击选择文件</p>
+      <p class="text-gray-500 text-sm">支持 GIF89a 格式，建议不超过 10MB</p>
+      <input type="file" id="file-input" accept=".gif,image/gif" class="hidden">
+    </div>
+  </section>
+
+  <section id="processing-section" class="mb-8 hidden">
+    <div class="card p-6">
+      <h2 class="text-xl font-semibold text-white mb-4">处理进度</h2>
+      <div class="space-y-3">
+        <div>
+          <div class="flex justify-between text-sm mb-1">
+            <span class="text-gray-400" id="step-label">解析 GIF 帧...</span>
+            <span class="text-gray-400" id="step-progress">0%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="preview-section" class="mb-8 hidden">
+    <div class="card p-6">
+      <h2 class="text-xl font-semibold text-white mb-4">原始 GIF 预览</h2>
+      <div class="flex flex-wrap gap-6 items-start">
+        <div class="canvas-container">
+          <canvas id="preview-canvas"></canvas>
+          <canvas id="pose-overlay"></canvas>
+        </div>
+        <div class="flex-1 min-w-[300px]">
+          <div class="mb-4">
+            <h3 class="text-sm font-medium text-gray-400 mb-2">帧信息</h3>
+            <p class="text-gray-300" id="frame-info">-</p>
+          </div>
+          <div class="mb-4">
+            <h3 class="text-sm font-medium text-gray-400 mb-2">帧时间轴</h3>
+            <div id="frame-timeline" class="flex flex-wrap gap-1 max-h-[200px] overflow-y-auto p-1"></div>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-400 mb-2">播放控制</h3>
+            <div class="flex gap-2 items-center">
+              <button id="btn-play" class="btn-primary text-sm">播放</button>
+              <button id="btn-prev" class="btn-primary text-sm">上一帧</button>
+              <button id="btn-next" class="btn-primary text-sm">下一帧</button>
+              <span class="text-gray-400 text-sm ml-2" id="frame-counter">0 / 0</span>
+              <label class="flex items-center gap-2 ml-4 text-sm text-gray-400">
+                <input type="checkbox" id="show-pose" checked class="accent-indigo-500"> 显示骨骼
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="similarity-section" class="mb-8 hidden">
+    <div class="card p-6">
+      <h2 class="text-xl font-semibold text-white mb-4">姿势相似度热力图</h2>
+      <p class="text-gray-400 text-sm mb-4">颜色越亮表示两帧姿势越相似，对角线为自比较（相似度=1）</p>
+      <div class="overflow-auto">
+        <div id="heatmap-container" class="inline-block"></div>
+      </div>
+      <div class="flex items-center gap-4 mt-4 text-sm text-gray-400">
+        <span>低相似度</span>
+        <div class="flex gap-0.5">
+          <div class="w-6 h-4 rounded-sm" style="background: rgb(15,23,42)"></div>
+          <div class="w-6 h-4 rounded-sm" style="background: rgb(30,64,120)"></div>
+          <div class="w-6 h-4 rounded-sm" style="background: rgb(50,120,180)"></div>
+          <div class="w-6 h-4 rounded-sm" style="background: rgb(80,180,140)"></div>
+          <div class="w-6 h-4 rounded-sm" style="background: rgb(160,220,80)"></div>
+          <div class="w-6 h-4 rounded-sm" style="background: rgb(240,200,40)"></div>
+          <div class="w-6 h-4 rounded-sm" style="background: rgb(250,120,30)"></div>
+          <div class="w-6 h-4 rounded-sm" style="background: rgb(220,40,40)"></div>
+        </div>
+        <span>高相似度</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="loops-section" class="mb-8 hidden">
+    <div class="card p-6">
+      <h2 class="text-xl font-semibold text-white mb-2">检测到的循环动画</h2>
+      <p class="text-gray-400 text-sm mb-4" id="loops-summary">-</p>
+      <div id="loops-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+// ========================================================================
+// GIF Decoder
+// ========================================================================
+class GifDecoder {
+  constructor(buffer) {
+    this.buffer = buffer;
+    this.data = new Uint8Array(buffer);
+    this.pos = 0;
+    this.width = 0;
+    this.height = 0;
+    this.globalColorTable = null;
+    this.frames = [];
+  }
+
+  readByte() { return this.data[this.pos++]; }
+
+  readWord() {
+    const lo = this.data[this.pos++];
+    const hi = this.data[this.pos++];
+    return (hi << 8) | lo;
+  }
+
+  readBytes(n) {
+    const result = this.data.slice(this.pos, this.pos + n);
+    this.pos += n;
+    return result;
+  }
+
+  readSubBlocks() {
+    const blocks = [];
+    while (true) {
+      const size = this.readByte();
+      if (size === 0) break;
+      blocks.push(this.readBytes(size));
+    }
+    const total = blocks.reduce((s, b) => s + b.length, 0);
+    const result = new Uint8Array(total);
+    let offset = 0;
+    for (const b of blocks) {
+      result.set(b, offset);
+      offset += b.length;
+    }
+    return result;
+  }
+
+  readColorTable(size) {
+    const colors = new Uint8Array(size * 3);
+    for (let i = 0; i < size * 3; i++) {
+      colors[i] = this.readByte();
+    }
+    return colors;
+  }
+
+  decode() {
+    const sig = String.fromCharCode(...this.data.slice(0, 6));
+    if (sig !== 'GIF87a' && sig !== 'GIF89a') {
+      throw new Error('不是有效的 GIF 文件');
+    }
+    this.pos = 6;
+
+    this.width = this.readWord();
+    this.height = this.readWord();
+
+    const packed = this.readByte();
+    const gctFlag = (packed >> 7) & 1;
+    const gctSize = 2 << (packed & 7);
+    this.bgColorIndex = this.readByte();
+    this.pixelAspectRatio = this.readByte();
+
+    if (gctFlag) {
+      this.globalColorTable = this.readColorTable(gctSize);
+    }
+
+    let gce = null;
+    while (this.pos < this.data.length) {
+      const blockType = this.readByte();
+      if (blockType === 0x3B) break;
+      if (blockType === 0x21) {
+        const label = this.readByte();
+        if (label === 0xF9) {
+          const blockSize = this.readByte();
+          const gcePacked = this.readByte();
+          const delay = this.readWord();
+          const transIndex = this.readByte();
+          this.readByte();
+          gce = {
+            disposalMethod: (gcePacked >> 2) & 7,
+            userInput: (gcePacked >> 1) & 1,
+            transparentFlag: gcePacked & 1,
+            delay: delay * 10,
+            transparentIndex: transIndex
+          };
+        } else {
+          this.readSubBlocks();
+        }
+      } else if (blockType === 0x2C) {
+        const frame = this.readImageDescriptor(gce);
+        this.frames.push(frame);
+        gce = null;
+      } else {
+        break;
+      }
+    }
+    return this.compositeFrames();
+  }
+
+  readImageDescriptor(gce) {
+    const left = this.readWord();
+    const top = this.readWord();
+    const width = this.readWord();
+    const height = this.readWord();
+    const packed = this.readByte();
+    const lctFlag = (packed >> 7) & 1;
+    const interlaceFlag = (packed >> 6) & 1;
+    const lctSize = lctFlag ? (2 << (packed & 7)) : 0;
+
+    let colorTable = this.globalColorTable;
+    if (lctFlag) {
+      colorTable = this.readColorTable(lctSize);
+    }
+
+    const minCodeSize = this.readByte();
+    const compressedData = this.readSubBlocks();
+    const pixels = this.decodeLZW(minCodeSize, compressedData, width, height, interlaceFlag);
+
+    return {
+      left, top, width, height,
+      pixels,
+      colorTable,
+      gce: gce ? { ...gce } : null
+    };
+  }
+
+  decodeLZW(minCodeSize, compressedData, width, height, interlace) {
+    const clearCode = 1 << minCodeSize;
+    const eoiCode = clearCode + 1;
+    const output = new Uint8Array(width * height);
+
+    let codeSize = minCodeSize + 1;
+    let nextCode = eoiCode + 1;
+    let codeMask = (1 << codeSize) - 1;
+
+    const table = new Array(4096);
+    for (let i = 0; i < clearCode; i++) {
+      table[i] = [i];
+    }
+
+    let bitBuf = 0;
+    let bitCount = 0;
+    let dataPos = 0;
+    let outputPos = 0;
+
+    function readCode() {
+      while (bitCount < codeSize) {
+        if (dataPos >= compressedData.length) return -1;
+        bitBuf |= compressedData[dataPos++] << bitCount;
+        bitCount += 8;
+      }
+      const code = bitBuf & codeMask;
+      bitBuf >>= codeSize;
+      bitCount -= codeSize;
+      return code;
+    }
+
+    let code = readCode();
+    if (code !== clearCode) {
+      // skip
+    }
+
+    code = readCode();
+    if (code === -1 || code === eoiCode) return output;
+
+    let prevEntry = table[code] || [code];
+    output[outputPos++] = prevEntry[0];
+
+    while (outputPos < width * height) {
+      code = readCode();
+      if (code === -1) break;
+      if (code === clearCode) {
+        codeSize = minCodeSize + 1;
+        codeMask = (1 << codeSize) - 1;
+        nextCode = eoiCode + 1;
+        for (let i = 0; i < clearCode; i++) {
+          table[i] = [i];
+        }
+        code = readCode();
+        if (code === -1 || code === eoiCode) break;
+        prevEntry = table[code] || [code];
+        for (let j = 0; j < prevEntry.length && outputPos < width * height; j++) {
+          output[outputPos++] = prevEntry[j];
+        }
+        continue;
+      }
+      if (code === eoiCode) break;
+
+      let entry;
+      if (code < nextCode && table[code]) {
+        entry = table[code];
+      } else {
+        entry = [...prevEntry, prevEntry[0]];
+      }
+
+      for (let j = 0; j < entry.length && outputPos < width * height; j++) {
+        output[outputPos++] = entry[j];
+      }
+
+      if (nextCode < 4096) {
+        table[nextCode] = [...prevEntry, entry[0]];
+        nextCode++;
+        if (nextCode > codeMask && codeSize < 12) {
+          codeSize++;
+          codeMask = (1 << codeSize) - 1;
+        }
+      }
+
+      prevEntry = entry;
+    }
+
+    if (interlace) {
+      const deinterlaced = new Uint8Array(width * height);
+      const passes = [
+        { start: 0, step: 8 },
+        { start: 4, step: 8 },
+        { start: 2, step: 4 },
+        { start: 1, step: 2 }
+      ];
+      let srcRow = 0;
+      for (const pass of passes) {
+        for (let y = pass.start; y < height; y += pass.step) {
+          const srcOffset = srcRow * width;
+          const dstOffset = y * width;
+          for (let x = 0; x < width; x++) {
+            deinterlaced[dstOffset + x] = output[srcOffset + x];
+          }
+          srcRow++;
+        }
+      }
+      return deinterlaced;
+    }
+
+    return output;
+  }
+
+  compositeFrames() {
+    const result = [];
+    const canvas = document.createElement('canvas');
+    canvas.width = this.width;
+    canvas.height = this.height;
+    const ctx = canvas.getContext('2d');
+    const prevCanvas = document.createElement('canvas');
+    prevCanvas.width = this.width;
+    prevCanvas.height = this.height;
+    const prevCtx = prevCanvas.getContext('2d');
+
+    for (let i = 0; i < this.frames.length; i++) {
+      const frame = this.frames[i];
+      const disposal = frame.gce ? frame.gce.disposalMethod : 0;
+
+      if (i === 0) {
+        ctx.clearRect(0, 0, this.width, this.height);
+      }
+
+      const imageData = ctx.getImageData(0, 0, this.width, this.height);
+      const data = imageData.data;
+      const ct = frame.colorTable;
+      const transparentFlag = frame.gce ? frame.gce.transparentFlag : 0;
+      const transIdx = frame.gce ? frame.gce.transparentIndex : -1;
+
+      for (let y = 0; y < frame.height; y++) {
+        for (let x = 0; x < frame.width; x++) {
+          const srcIdx = y * frame.width + x;
+          const pixelIdx = frame.pixels[srcIdx];
+          const dstX = frame.left + x;
+          const dstY = frame.top + y;
+          if (dstX >= this.width || dstY >= this.height) continue;
+          if (transparentFlag && pixelIdx === transIdx) continue;
+          const dstIdx = (dstY * this.width + dstX) * 4;
+          const ctIdx = pixelIdx * 3;
+          data[dstIdx] = ct[ctIdx];
+          data[dstIdx + 1] = ct[ctIdx + 1];
+          data[dstIdx + 2] = ct[ctIdx + 2];
+          data[dstIdx + 3] = 255;
+        }
+      }
+      ctx.putImageData(imageData, 0, 0);
+
+      const frameImageData = ctx.getImageData(0, 0, this.width, this.height);
+      result.push({
+        imageData: frameImageData,
+        delay: frame.gce ? Math.max(frame.gce.delay, 20) : 100,
+        disposal
+      });
+
+      if (disposal === 2) {
+        ctx.clearRect(frame.left, frame.top, frame.width, frame.height);
+      } else if (disposal === 3) {
+        ctx.drawImage(prevCanvas, 0, 0);
+      }
+
+      prevCtx.clearRect(0, 0, this.width, this.height);
+      prevCtx.drawImage(canvas, 0, 0);
+    }
+
+    return result;
+  }
+}
+
+// ========================================================================
+// Pose Detector
+// ========================================================================
+class PoseDetector {
+  constructor() {
+    this.pose = null;
+    this.ready = false;
+  }
+
+  async init() {
+    this.pose = new Pose({
+      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/${file}`
+    });
+    this.pose.setOptions({
+      modelComplexity: 1,
+      smoothLandmarks: false,
+      enableSegmentation: false,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5
+    });
+    await this.pose.initialize();
+    this.ready = true;
+  }
+
+  detect(canvas) {
+    return new Promise((resolve) => {
+      this.pose.onResults((results) => {
+        if (results.poseLandmarks && results.poseLandmarks.length > 0) {
+          resolve(results.poseLandmarks);
+        } else {
+          resolve(null);
+        }
+      });
+      this.pose.send({ image: canvas });
+    });
+  }
+}
+
+// ========================================================================
+// Pose Similarity
+// ========================================================================
+const PoseSimilarity = {
+  KEY_LANDMARKS: [11, 12, 13, 14, 15, 16, 23, 24, 25, 26, 27, 28],
+
+  normalizePose(landmarks) {
+    const kl = PoseSimilarity.KEY_LANDMARKS;
+    const points = kl.map(i => landmarks[i]).filter(l => l.visibility > 0.5);
+    if (points.length < 4) return null;
+
+    const lShoulder = landmarks[11];
+    const rShoulder = landmarks[12];
+    if (lShoulder.visibility < 0.5 || rShoulder.visibility < 0.5) return null;
+
+    const cx = (lShoulder.x + rShoulder.x) / 2;
+    const cy = (lShoulder.y + rShoulder.y) / 2;
+    const scale = Math.sqrt(
+      (lShoulder.x - rShoulder.x) ** 2 +
+      (lShoulder.y - rShoulder.y) ** 2
+    );
+    if (scale < 1e-6) return null;
+
+    const normalized = [];
+    for (const i of kl) {
+      const l = landmarks[i];
+      if (l.visibility > 0.5) {
+        normalized.push((l.x - cx) / scale, (l.y - cy) / scale);
+      } else {
+        normalized.push(0, 0);
+      }
+    }
+    return normalized;
+  },
+
+  cosineSimilarity(a, b) {
+    if (!a || !b) return 0;
+    let dot = 0, normA = 0, normB = 0;
+    for (let i = 0; i < a.length; i++) {
+      dot += a[i] * b[i];
+      normA += a[i] * a[i];
+      normB += b[i] * b[i];
+    }
+    if (normA < 1e-10 || normB < 1e-10) return 0;
+    return dot / (Math.sqrt(normA) * Math.sqrt(normB));
+  },
+
+  buildSimilarityMatrix(normalizedPoses) {
+    const n = normalizedPoses.length;
+    const matrix = new Float32Array(n * n);
+    for (let i = 0; i < n; i++) {
+      for (let j = i; j < n; j++) {
+        const sim = PoseSimilarity.cosineSimilarity(normalizedPoses[i], normalizedPoses[j]);
+        matrix[i * n + j] = sim;
+        matrix[j * n + i] = sim;
+      }
+    }
+    return matrix;
+  }
+};
+
+// ========================================================================
+// Loop Detector
+// ========================================================================
+const LoopDetector = {
+  detectLoops(similarityMatrix, numFrames, options = {}) {
+    const {
+      similarityThreshold = 0.85,
+      minLoopLength = 4,
+      maxLoops = 10
+    } = options;
+
+    const n = numFrames;
+    const candidates = [];
+
+    for (let i = 0; i < n; i++) {
+      for (let j = i + minLoopLength; j < n; j++) {
+        const sim = similarityMatrix[i * n + j];
+        if (sim >= similarityThreshold) {
+          const loopLength = j - i;
+          const distanceFactor = Math.min(loopLength / (n * 0.5), 1.0);
+          const qualityScore = sim * (0.3 + 0.7 * distanceFactor);
+          candidates.push({ start: i, end: j, similarity: sim, qualityScore, loopLength });
+        }
+      }
+    }
+
+    candidates.sort((a, b) => b.qualityScore - a.qualityScore);
+
+    const selected = [];
+    const used = new Set();
+
+    for (const c of candidates) {
+      if (selected.length >= maxLoops) break;
+      let overlap = false;
+      for (const s of selected) {
+        if (c.start < s.end && c.end > s.start) {
+          overlap = true;
+          break;
+        }
+      }
+      if (!overlap) {
+        selected.push(c);
+        for (let f = c.start; f < c.end; f++) used.add(f);
+      }
+    }
+
+    selected.sort((a, b) => a.start - b.start);
+    return selected;
+  }
+};
+
+// ========================================================================
+// GIF Encoder (minimal LZW-based)
+// ========================================================================
+class GifEncoder {
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+    this.frames = [];
+  }
+
+  addFrame(imageData, delay = 100) {
+    this.frames.push({ imageData, delay });
+  }
+
+  encode() {
+    const buffers = [];
+    const write = (data) => {
+      if (data instanceof Uint8Array) {
+        buffers.push(data);
+      } else if (typeof data === 'number') {
+        buffers.push(new Uint8Array([data]));
+      }
+    };
+    const writeWord = (v) => {
+      buffers.push(new Uint8Array([v & 0xFF, (v >> 8) & 0xFF]));
+    };
+    const writeString = (s) => {
+      buffers.push(new Uint8Array(s.split('').map(c => c.charCodeAt(0))));
+    };
+
+    writeString('GIF89a');
+    writeWord(this.width);
+    writeWord(this.height);
+
+    const palette = this.buildPalette(this.frames[0].imageData);
+    const colorTableSize = 256;
+    const gctSizeBits = 7;
+    const packed = 0x80 | (gctSizeBits);
+    write(packed);
+    write(0);
+    write(0);
+
+    const ctData = new Uint8Array(colorTableSize * 3);
+    for (let i = 0; i < palette.length; i++) {
+      ctData[i * 3] = palette[i][0];
+      ctData[i * 3 + 1] = palette[i][1];
+      ctData[i * 3 + 2] = palette[i][2];
+    }
+    buffers.push(ctData);
+
+    write(0x21);
+    write(0xFF);
+    write(11);
+    writeString('NETSCAPE2.0');
+    write(3);
+    write(1);
+    writeWord(0);
+    write(0);
+
+    for (const frame of this.frames) {
+      const indexed = this.quantizeFrame(frame.imageData, palette);
+
+      write(0x21);
+      write(0xF9);
+      write(4);
+      const delayCs = Math.round(frame.delay / 10);
+      write(0x00);
+      writeWord(delayCs);
+      write(0);
+      write(0);
+
+      write(0x2C);
+      writeWord(0);
+      writeWord(0);
+      writeWord(this.width);
+      writeWord(this.height);
+      write(0);
+
+      const minCodeSize = 8;
+      write(minCodeSize);
+      const lzwData = this.lzwEncode(indexed, minCodeSize);
+      let pos = 0;
+      while (pos < lzwData.length) {
+        const chunkSize = Math.min(255, lzwData.length - pos);
+        write(chunkSize);
+        buffers.push(lzwData.slice(pos, pos + chunkSize));
+        pos += chunkSize;
+      }
+      write(0);
+    }
+
+    write(0x3B);
+
+    const totalLength = buffers.reduce((s, b) => s + b.length, 0);
+    const result = new Uint8Array(totalLength);
+    let offset = 0;
+    for (const b of buffers) {
+      result.set(b, offset);
+      offset += b.length;
+    }
+    return result;
+  }
+
+  buildPalette(imageData) {
+    const colorMap = new Map();
+    const data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i] >> 4;
+      const g = data[i + 1] >> 4;
+      const b = data[i + 2] >> 4;
+      const key = (r << 8) | (g << 4) | b;
+      if (!colorMap.has(key)) {
+        colorMap.set(key, [(r << 4) | r, (g << 4) | g, (b << 4) | b]);
+      }
+    }
+
+    const palette = Array.from(colorMap.values());
+    while (palette.length < 256) {
+      palette.push([0, 0, 0]);
+    }
+    return palette.slice(0, 256);
+  }
+
+  quantizeFrame(imageData, palette) {
+    const data = imageData.data;
+    const indexed = new Uint8Array(this.width * this.height);
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i], g = data[i + 1], b = data[i + 2];
+      let minDist = Infinity;
+      let bestIdx = 0;
+      for (let j = 0; j < palette.length; j++) {
+        const dr = r - palette[j][0];
+        const dg = g - palette[j][1];
+        const db = b - palette[j][2];
+        const dist = dr * dr + dg * dg + db * db;
+        if (dist < minDist) {
+          minDist = dist;
+          bestIdx = j;
+        }
+      }
+      indexed[i / 4] = bestIdx;
+    }
+    return indexed;
+  }
+
+  lzwEncode(indexed, minCodeSize) {
+    const clearCode = 1 << minCodeSize;
+    const eoiCode = clearCode + 1;
+
+    const output = [];
+    let bitBuf = 0;
+    let bitCount = 0;
+
+    function writeBits(code, size) {
+      bitBuf |= (code << bitCount);
+      bitCount += size;
+      while (bitCount >= 8) {
+        output.push(bitBuf & 0xFF);
+        bitBuf >>= 8;
+        bitCount -= 8;
+      }
+    }
+
+    let codeSize = minCodeSize + 1;
+    let nextCode = eoiCode + 1;
+
+    const codeTable = new Map();
+    for (let i = 0; i < clearCode; i++) {
+      codeTable.set(String(i), i);
+    }
+
+    writeBits(clearCode, codeSize);
+
+    let current = String(indexed[0]);
+
+    for (let i = 1; i < indexed.length; i++) {
+      const next = String(indexed[i]);
+      const combined = current + ',' + next;
+
+      if (codeTable.has(combined)) {
+        current = combined;
+      } else {
+        writeBits(codeTable.get(current), codeSize);
+
+        if (nextCode < 4096) {
+          codeTable.set(combined, nextCode);
+          nextCode++;
+          if (nextCode > (1 << codeSize) && codeSize < 12) {
+            codeSize++;
+          }
+        } else {
+          writeBits(clearCode, codeSize);
+          codeTable.clear();
+          for (let j = 0; j < clearCode; j++) {
+            codeTable.set(String(j), j);
+          }
+          nextCode = eoiCode + 1;
+          codeSize = minCodeSize + 1;
+        }
+
+        current = next;
+      }
+    }
+
+    writeBits(codeTable.get(current), codeSize);
+    writeBits(eoiCode, codeSize);
+
+    if (bitCount > 0) {
+      output.push(bitBuf & 0xFF);
+    }
+
+    return new Uint8Array(output);
+  }
+}
+
+// ========================================================================
+// Drawing Utils
+// ========================================================================
+const POSE_CONNECTIONS = [
+  [11, 12], [11, 13], [13, 15], [12, 14], [14, 16],
+  [11, 23], [12, 24], [23, 24], [23, 25], [25, 27],
+  [24, 26], [26, 28]
+];
+
+function drawPoseOnCanvas(ctx, landmarks, w, h, color = 'rgba(99, 102, 241, 0.8)') {
+  if (!landmarks) return;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2;
+  ctx.lineCap = 'round';
+
+  for (const [a, b] of POSE_CONNECTIONS) {
+    const la = landmarks[a], lb = landmarks[b];
+    if (la.visibility > 0.5 && lb.visibility > 0.5) {
+      ctx.beginPath();
+      ctx.moveTo(la.x * w, la.y * h);
+      ctx.lineTo(lb.x * w, lb.y * h);
+      ctx.stroke();
+    }
+  }
+
+  ctx.fillStyle = color;
+  for (const idx of PoseSimilarity.KEY_LANDMARKS) {
+    const l = landmarks[idx];
+    if (l.visibility > 0.5) {
+      ctx.beginPath();
+      ctx.arc(l.x * w, l.y * h, 3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+}
+
+function similarityToColor(sim) {
+  const r = Math.round(15 + sim * 235);
+  const g = Math.round(23 + (1 - Math.abs(sim - 0.5) * 2) * 200);
+  const b = Math.round(42 + (1 - sim) * 150);
+  return `rgb(${r},${g},${b})`;
+}
+
+// ========================================================================
+// Application
+// ========================================================================
+class App {
+  constructor() {
+    this.poseDetector = null;
+    this.frames = [];
+    this.landmarks = [];
+    this.normalizedPoses = [];
+    this.similarityMatrix = null;
+    this.loops = [];
+    this.currentFrame = 0;
+    this.playing = false;
+    this.playTimer = null;
+  }
+
+  async init() {
+    this.poseDetector = new PoseDetector();
+    await this.poseDetector.init();
+    document.getElementById('loading-overlay').style.display = 'none';
+    this.bindEvents();
+  }
+
+  bindEvents() {
+    const zone = document.getElementById('upload-zone');
+    const input = document.getElementById('file-input');
+
+    zone.addEventListener('click', () => input.click());
+    zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('dragover'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+    zone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      zone.classList.remove('dragover');
+      if (e.dataTransfer.files.length) this.handleFile(e.dataTransfer.files[0]);
+    });
+    input.addEventListener('change', (e) => {
+      if (e.target.files.length) this.handleFile(e.target.files[0]);
+    });
+
+    document.getElementById('btn-play').addEventListener('click', () => this.togglePlay());
+    document.getElementById('btn-prev').addEventListener('click', () => this.prevFrame());
+    document.getElementById('btn-next').addEventListener('click', () => this.nextFrame());
+    document.getElementById('show-pose').addEventListener('change', () => this.renderFrame());
+  }
+
+  async handleFile(file) {
+    if (!file.type.includes('gif') && !file.name.endsWith('.gif')) {
+      alert('请上传 GIF 文件');
+      return;
+    }
+
+    this.reset();
+    const buffer = await file.arrayBuffer();
+
+    this.showSection('processing');
+    this.updateProgress('解析 GIF 帧...', 0);
+
+    try {
+      const decoder = new GifDecoder(buffer);
+      this.frames = decoder.decode();
+    } catch (e) {
+      alert('GIF 解析失败: ' + e.message);
+      this.hideSection('processing');
+      return;
+    }
+
+    if (this.frames.length === 0) {
+      alert('未检测到帧数据');
+      this.hideSection('processing');
+      return;
+    }
+
+    this.updateProgress(`已解析 ${this.frames.length} 帧，正在检测姿势...`, 10);
+
+    const canvas = document.createElement('canvas');
+    canvas.width = decoder.width || this.frames[0].imageData.width;
+    canvas.height = decoder.height || this.frames[0].imageData.height;
+    this.gifWidth = canvas.width;
+    this.gifHeight = canvas.height;
+    const ctx = canvas.getContext('2d');
+
+    this.landmarks = [];
+    this.normalizedPoses = [];
+
+    for (let i = 0; i < this.frames.length; i++) {
+      ctx.putImageData(this.frames[i].imageData, 0, 0);
+      const lm = await this.poseDetector.detect(canvas);
+      this.landmarks.push(lm);
+
+      if (lm) {
+        const norm = PoseSimilarity.normalizePose(lm);
+        this.normalizedPoses.push(norm);
+      } else {
+        this.normalizedPoses.push(null);
+      }
+
+      const pct = 10 + Math.round((i / this.frames.length) * 60);
+      this.updateProgress(`检测姿势: 帧 ${i + 1} / ${this.frames.length}`, pct);
+    }
+
+    this.updateProgress('计算姿势相似度...', 75);
+    this.similarityMatrix = PoseSimilarity.buildSimilarityMatrix(this.normalizedPoses);
+
+    this.updateProgress('检测循环动画...', 85);
+    this.loops = LoopDetector.detectLoops(this.similarityMatrix, this.frames.length);
+
+    this.updateProgress('完成！', 100);
+
+    setTimeout(() => {
+      this.hideSection('processing');
+      this.showResults();
+    }, 500);
+  }
+
+  reset() {
+    this.frames = [];
+    this.landmarks = [];
+    this.normalizedPoses = [];
+    this.similarityMatrix = null;
+    this.loops = [];
+    this.currentFrame = 0;
+    this.stopPlay();
+  }
+
+  showResults() {
+    this.showSection('preview');
+    this.showSection('similarity');
+    this.showSection('loops');
+
+    const previewCanvas = document.getElementById('preview-canvas');
+    const overlayCanvas = document.getElementById('pose-overlay');
+    previewCanvas.width = this.gifWidth;
+    previewCanvas.height = this.gifHeight;
+    overlayCanvas.width = this.gifWidth;
+    overlayCanvas.height = this.gifHeight;
+
+    const maxDisplay = 400;
+    const scale = Math.min(maxDisplay / this.gifWidth, maxDisplay / this.gifHeight, 1);
+    previewCanvas.style.width = Math.round(this.gifWidth * scale) + 'px';
+    previewCanvas.style.height = Math.round(this.gifHeight * scale) + 'px';
+    overlayCanvas.style.width = previewCanvas.style.width;
+    overlayCanvas.style.height = previewCanvas.style.height;
+
+    document.getElementById('frame-info').textContent =
+      `尺寸: ${this.gifWidth}×${this.gifHeight} | 总帧数: ${this.frames.length} | ` +
+      `检测到姿势: ${this.landmarks.filter(l => l).length} 帧 | ` +
+      `循环数: ${this.loops.length}`;
+
+    this.buildTimeline();
+    this.buildHeatmap();
+    this.buildLoopsUI();
+    this.renderFrame();
+  }
+
+  buildTimeline() {
+    const container = document.getElementById('frame-timeline');
+    container.innerHTML = '';
+
+    const canvas = document.createElement('canvas');
+    canvas.width = this.gifWidth;
+    canvas.height = this.gifHeight;
+    const ctx = canvas.getContext('2d');
+
+    for (let i = 0; i < this.frames.length; i++) {
+      ctx.putImageData(this.frames[i].imageData, 0, 0);
+      const thumb = document.createElement('canvas');
+      thumb.width = 60;
+      thumb.height = 60;
+      const tCtx = thumb.getContext('2d');
+      tCtx.drawImage(canvas, 0, 0, 60, 60);
+
+      if (this.landmarks[i]) {
+        drawPoseOnCanvas(tCtx, this.landmarks[i], 60, 60, 'rgba(99, 102, 241, 0.5)');
+      }
+
+      const img = document.createElement('img');
+      img.src = thumb.toDataURL();
+      img.className = 'frame-thumb';
+      img.title = `帧 ${i}`;
+      img.addEventListener('click', () => {
+        this.currentFrame = i;
+        this.renderFrame();
+      });
+      container.appendChild(img);
+    }
+  }
+
+  buildHeatmap() {
+    const container = document.getElementById('heatmap-container');
+    container.innerHTML = '';
+    const n = this.frames.length;
+
+    if (n > 100) {
+      container.innerHTML = '<p class="text-gray-400 text-sm">帧数过多，跳过热力图显示</p>';
+      return;
+    }
+
+    const cellSize = Math.max(8, Math.min(16, Math.floor(400 / n)));
+    const grid = document.createElement('div');
+    grid.style.display = 'grid';
+    grid.style.gridTemplateColumns = `repeat(${n}, ${cellSize}px)`;
+    grid.style.gap = '1px';
+
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+        const sim = this.similarityMatrix[i * n + j];
+        const cell = document.createElement('div');
+        cell.className = 'heatmap-cell';
+        cell.style.width = cellSize + 'px';
+        cell.style.height = cellSize + 'px';
+        cell.style.background = similarityToColor(sim);
+        cell.title = `帧 ${i} ↔ 帧 ${j}: ${sim.toFixed(3)}`;
+        grid.appendChild(cell);
+      }
+    }
+    container.appendChild(grid);
+  }
+
+  buildLoopsUI() {
+    const container = document.getElementById('loops-container');
+    const summary = document.getElementById('loops-summary');
+    container.innerHTML = '';
+
+    if (this.loops.length === 0) {
+      summary.textContent = '未检测到循环动画。尝试调整相似度阈值或使用更长的 GIF。';
+      return;
+    }
+
+    summary.textContent = `共检测到 ${this.loops.length} 个循环动画片段`;
+
+    for (let li = 0; li < this.loops.length; li++) {
+      const loop = this.loops[li];
+      const card = document.createElement('div');
+      card.className = 'loop-card';
+
+      const previewCanvas = document.createElement('canvas');
+      previewCanvas.width = this.gifWidth;
+      previewCanvas.height = this.gifHeight;
+      const displayScale = Math.min(200 / this.gifWidth, 200 / this.gifHeight, 1);
+      previewCanvas.style.width = Math.round(this.gifWidth * displayScale) + 'px';
+      previewCanvas.style.height = Math.round(this.gifHeight * displayScale) + 'px';
+      previewCanvas.style.borderRadius = '8px';
+      previewCanvas.style.background = '#000';
+
+      const info = document.createElement('div');
+      info.className = 'mt-3';
+      info.innerHTML = `
+        <p class="text-white font-medium">循环 ${li + 1}</p>
+        <p class="text-gray-400 text-sm">帧范围: ${loop.start} → ${loop.end} (${loop.loopLength} 帧)</p>
+        <p class="text-gray-400 text-sm">首尾相似度: ${loop.similarity.toFixed(3)}</p>
+        <p class="text-gray-400 text-sm">质量分数: ${loop.qualityScore.toFixed(3)}</p>
+        <button class="btn-primary text-sm mt-2" data-loop="${li}">下载 GIF</button>
+      `;
+
+      card.appendChild(previewCanvas);
+      card.appendChild(info);
+      container.appendChild(card);
+
+      const pCtx = previewCanvas.getContext('2d');
+      let animFrame = loop.start;
+      const animLoop = () => {
+        if (!document.body.contains(previewCanvas)) return;
+        pCtx.putImageData(this.frames[animFrame].imageData, 0, 0);
+        animFrame++;
+        if (animFrame >= loop.end) animFrame = loop.start;
+        setTimeout(animLoop, this.frames[animFrame]?.delay || 100);
+      };
+      animLoop();
+
+      info.querySelector('button').addEventListener('click', () => {
+        this.downloadLoop(loop, li);
+      });
+    }
+  }
+
+  async downloadLoop(loop, index) {
+    const encoder = new GifEncoder(this.gifWidth, this.gifHeight);
+    for (let i = loop.start; i < loop.end; i++) {
+      encoder.addFrame(this.frames[i].imageData, this.frames[i].delay);
+    }
+    const gifData = encoder.encode();
+    const blob = new Blob([gifData], { type: 'image/gif' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `loop_${index + 1}_frames_${loop.start}-${loop.end}.gif`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  renderFrame() {
+    if (this.frames.length === 0) return;
+    const i = this.currentFrame;
+
+    const previewCanvas = document.getElementById('preview-canvas');
+    const overlayCanvas = document.getElementById('pose-overlay');
+    const pCtx = previewCanvas.getContext('2d');
+    const oCtx = overlayCanvas.getContext('2d');
+
+    pCtx.putImageData(this.frames[i].imageData, 0, 0);
+    oCtx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+
+    if (document.getElementById('show-pose').checked && this.landmarks[i]) {
+      drawPoseOnCanvas(oCtx, this.landmarks[i], overlayCanvas.width, overlayCanvas.height);
+    }
+
+    document.getElementById('frame-counter').textContent = `${i + 1} / ${this.frames.length}`;
+
+    const thumbs = document.querySelectorAll('.frame-thumb');
+    thumbs.forEach((t, idx) => {
+      t.classList.toggle('active', idx === i);
+    });
+  }
+
+  togglePlay() {
+    if (this.playing) {
+      this.stopPlay();
+    } else {
+      this.startPlay();
+    }
+  }
+
+  startPlay() {
+    this.playing = true;
+    document.getElementById('btn-play').textContent = '暂停';
+    const tick = () => {
+      if (!this.playing) return;
+      this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+      this.renderFrame();
+      const delay = this.frames[this.currentFrame]?.delay || 100;
+      this.playTimer = setTimeout(tick, delay);
+    };
+    tick();
+  }
+
+  stopPlay() {
+    this.playing = false;
+    document.getElementById('btn-play').textContent = '播放';
+    if (this.playTimer) {
+      clearTimeout(this.playTimer);
+      this.playTimer = null;
+    }
+  }
+
+  prevFrame() {
+    this.stopPlay();
+    this.currentFrame = (this.currentFrame - 1 + this.frames.length) % this.frames.length;
+    this.renderFrame();
+  }
+
+  nextFrame() {
+    this.stopPlay();
+    this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+    this.renderFrame();
+  }
+
+  updateProgress(label, pct) {
+    document.getElementById('step-label').textContent = label;
+    document.getElementById('step-progress').textContent = pct + '%';
+    document.getElementById('progress-fill').style.width = pct + '%';
+  }
+
+  showSection(id) {
+    document.getElementById(id + '-section').classList.remove('hidden');
+  }
+
+  hideSection(id) {
+    document.getElementById(id + '-section').classList.add('hidden');
+  }
+}
+
+// ========================================================================
+// Initialize
+// ========================================================================
+const app = new App();
+app.init().catch(err => {
+  console.error('初始化失败:', err);
+  document.getElementById('loading-text').textContent = '加载失败: ' + err.message;
+});
+</script>
+</body>
+</html>
