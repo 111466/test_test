@@ -575,27 +575,69 @@ class PoseDetector {
       locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/${file}`
     });
     this.pose.setOptions({
-      modelComplexity: 1,
+      modelComplexity: 0,
       smoothLandmarks: false,
       enableSegmentation: false,
-      minDetectionConfidence: 0.5,
-      minTrackingConfidence: 0.5
+      minDetectionConfidence: 0.3,
+      minTrackingConfidence: 0.3
     });
     await this.pose.initialize();
     this.ready = true;
   }
 
-  detect(canvas) {
-    return new Promise((resolve) => {
+  async warmup() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 64;
+    canvas.height = 64;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#888';
+    ctx.fillRect(20, 5, 24, 54);
+    try {
+      await this.detectWithTimeout(canvas, 60000);
+    } catch (e) {
+      console.warn('预热未检测到人体（正常）:', e.message);
+    }
+  }
+
+  detectWithTimeout(canvas, timeoutMs = 30000) {
+    return new Promise((resolve, reject) => {
+      let settled = false;
+      const timer = setTimeout(() => {
+        if (!settled) {
+          settled = true;
+          reject(new Error(`检测超时 (${timeoutMs}ms)`));
+        }
+      }, timeoutMs);
+
       this.pose.onResults((results) => {
-        if (results.poseLandmarks && results.poseLandmarks.length > 0) {
-          resolve(results.poseLandmarks);
-        } else {
-          resolve(null);
+        if (!settled) {
+          settled = true;
+          clearTimeout(timer);
+          if (results.poseLandmarks && results.poseLandmarks.length > 0) {
+            resolve(results.poseLandmarks);
+          } else {
+            resolve(null);
+          }
         }
       });
-      this.pose.send({ image: canvas });
+
+      this.pose.send({ image: canvas }).catch((err) => {
+        if (!settled) {
+          settled = true;
+          clearTimeout(timer);
+          reject(err);
+        }
+      });
     });
+  }
+
+  async detect(canvas) {
+    try {
+      return await this.detectWithTimeout(canvas, 30000);
+    } catch (e) {
+      console.warn('帧检测失败:', e.message);
+      return null;
+    }
   }
 }
 
@@ -1026,24 +1068,43 @@ class App {
     const buffer = await file.arrayBuffer();
 
     this.showSection('processing');
+    document.getElementById('detail-progress').classList.remove('hidden');
     this.updateProgress('解析 GIF 帧...', 0);
+    await this.yieldToUI();
 
+    let decoder;
     try {
-      const decoder = new GifDecoder(buffer);
+      decoder = new GifDecoder(buffer);
       this.frames = decoder.decode();
     } catch (e) {
       alert('GIF 解析失败: ' + e.message);
       this.hideSection('processing');
+      document.getElementById('detail-progress').classList.add('hidden');
       return;
     }
 
     if (this.frames.length === 0) {
       alert('未检测到帧数据');
       this.hideSection('processing');
+      document.getElementById('detail-progress').classList.add('hidden');
       return;
     }
 
-    this.updateProgress(`已解析 ${this.frames.length} 帧，正在检测姿势...`, 10);
+    this.updateProgress(`已解析 ${this.frames.length} 帧`, 5);
+    document.getElementById('dp-current').textContent = '预热中...';
+    document.getElementById('dp-elapsed').textContent = '-';
+    document.getElementById('dp-remaining').textContent = '-';
+    document.getElementById('dp-perframe').textContent = '-';
+    document.getElementById('dp-detected').textContent = '-';
+    await this.yieldToUI();
+
+    this.updateProgress('预热姿势检测模型（首次可能需要下载模型文件）...', 8);
+    await this.yieldToUI();
+    const warmupStart = performance.now();
+    await this.poseDetector.warmup();
+    const warmupTime = ((performance.now() - warmupStart) / 1000).toFixed(1);
+    document.getElementById('dp-elapsed').textContent = `预热耗时 ${warmupTime}s`;
+    await this.yieldToUI();
 
     const canvas = document.createElement('canvas');
     canvas.width = decoder.width || this.frames[0].imageData.width;
@@ -1061,8 +1122,6 @@ class App {
     dpPreview.style.width = Math.round(this.gifWidth * dpScale) + 'px';
     dpPreview.style.height = Math.round(this.gifHeight * dpScale) + 'px';
 
-    document.getElementById('detail-progress').classList.remove('hidden');
-
     this.landmarks = [];
     this.normalizedPoses = [];
     let detectedCount = 0;
@@ -1079,6 +1138,19 @@ class App {
       ctx.putImageData(this.frames[i].imageData, 0, 0);
       dpCtx.putImageData(this.frames[i].imageData, 0, 0);
 
+      const pct = 10 + Math.round((i / this.frames.length) * 60);
+      this.updateProgress(`正在检测姿势: 帧 ${i + 1} / ${this.frames.length}...`, pct);
+      document.getElementById('dp-current').textContent = `${i + 1} / ${this.frames.length}`;
+      const elapsedSoFar = (performance.now() - startTime) / 1000;
+      if (i > 0) {
+        const avgFrameTime = frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length;
+        const remaining = ((this.frames.length - i) * avgFrameTime) / 1000;
+        document.getElementById('dp-remaining').textContent = `约 ${this.formatTime(remaining)}`;
+        document.getElementById('dp-perframe').textContent = `${avgFrameTime.toFixed(0)} ms`;
+      }
+      document.getElementById('dp-elapsed').textContent = this.formatTime(elapsedSoFar);
+      await this.yieldToUI();
+
       const frameStart = performance.now();
       const lm = await this.poseDetector.detect(canvas);
       const frameEnd = performance.now();
@@ -1094,18 +1166,7 @@ class App {
         this.normalizedPoses.push(null);
       }
 
-      const pct = 10 + Math.round((i / this.frames.length) * 60);
-      const elapsed = (frameEnd - startTime) / 1000;
-      const avgFrameTime = frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length;
-      const remaining = ((this.frames.length - i - 1) * avgFrameTime) / 1000;
-
-      this.updateProgress(`检测姿势: 帧 ${i + 1} / ${this.frames.length}`, pct);
-      document.getElementById('dp-current').textContent = `${i + 1} / ${this.frames.length}`;
-      document.getElementById('dp-elapsed').textContent = this.formatTime(elapsed);
-      document.getElementById('dp-remaining').textContent = i > 0 ? `约 ${this.formatTime(remaining)}` : '计算中...';
-      document.getElementById('dp-perframe').textContent = `${avgFrameTime.toFixed(0)} ms`;
       document.getElementById('dp-detected').textContent = `${detectedCount} / ${i + 1} 帧`;
-
       await this.yieldToUI();
     }
 
