@@ -161,6 +161,27 @@
             <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
           </div>
         </div>
+        <div id="detail-progress" class="hidden">
+          <div class="grid grid-cols-2 gap-x-6 gap-y-1 text-sm">
+            <div class="text-gray-500">当前帧</div>
+            <div class="text-gray-300" id="dp-current">-</div>
+            <div class="text-gray-500">已用时间</div>
+            <div class="text-gray-300" id="dp-elapsed">-</div>
+            <div class="text-gray-500">预估剩余</div>
+            <div class="text-gray-300" id="dp-remaining">-</div>
+            <div class="text-gray-500">每帧耗时</div>
+            <div class="text-gray-300" id="dp-perframe">-</div>
+            <div class="text-gray-500">检测到姿势</div>
+            <div class="text-gray-300" id="dp-detected">-</div>
+          </div>
+          <div class="mt-3">
+            <p class="text-gray-500 text-sm mb-1">正在处理的帧</p>
+            <canvas id="dp-preview" class="rounded-lg bg-black" style="max-width:200px;max-height:200px"></canvas>
+          </div>
+          <div class="mt-3">
+            <button id="btn-cancel" class="px-4 py-2 text-sm rounded-lg border border-red-500/50 text-red-400 hover:bg-red-500/10 transition">取消处理</button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -991,6 +1012,7 @@ class App {
     document.getElementById('btn-prev').addEventListener('click', () => this.prevFrame());
     document.getElementById('btn-next').addEventListener('click', () => this.nextFrame());
     document.getElementById('show-pose').addEventListener('change', () => this.renderFrame());
+    document.getElementById('btn-cancel').addEventListener('click', () => { this.cancelled = true; });
   }
 
   async handleFile(file) {
@@ -1000,6 +1022,7 @@ class App {
     }
 
     this.reset();
+    this.cancelled = false;
     const buffer = await file.arrayBuffer();
 
     this.showSection('processing');
@@ -1029,15 +1052,42 @@ class App {
     this.gifHeight = canvas.height;
     const ctx = canvas.getContext('2d');
 
+    const dpPreview = document.getElementById('dp-preview');
+    dpPreview.width = this.gifWidth;
+    dpPreview.height = this.gifHeight;
+    const dpCtx = dpPreview.getContext('2d');
+    const maxDisplay = 200;
+    const dpScale = Math.min(maxDisplay / this.gifWidth, maxDisplay / this.gifHeight, 1);
+    dpPreview.style.width = Math.round(this.gifWidth * dpScale) + 'px';
+    dpPreview.style.height = Math.round(this.gifHeight * dpScale) + 'px';
+
+    document.getElementById('detail-progress').classList.remove('hidden');
+
     this.landmarks = [];
     this.normalizedPoses = [];
+    let detectedCount = 0;
+    const startTime = performance.now();
+    const frameTimes = [];
 
     for (let i = 0; i < this.frames.length; i++) {
-      ctx.putImageData(this.frames[i].imageData, 0, 0);
-      const lm = await this.poseDetector.detect(canvas);
-      this.landmarks.push(lm);
+      if (this.cancelled) {
+        this.hideSection('processing');
+        document.getElementById('detail-progress').classList.add('hidden');
+        return;
+      }
 
+      ctx.putImageData(this.frames[i].imageData, 0, 0);
+      dpCtx.putImageData(this.frames[i].imageData, 0, 0);
+
+      const frameStart = performance.now();
+      const lm = await this.poseDetector.detect(canvas);
+      const frameEnd = performance.now();
+      const frameTime = frameEnd - frameStart;
+      frameTimes.push(frameTime);
+
+      this.landmarks.push(lm);
       if (lm) {
+        detectedCount++;
         const norm = PoseSimilarity.normalizePose(lm);
         this.normalizedPoses.push(norm);
       } else {
@@ -1045,13 +1095,33 @@ class App {
       }
 
       const pct = 10 + Math.round((i / this.frames.length) * 60);
+      const elapsed = (frameEnd - startTime) / 1000;
+      const avgFrameTime = frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length;
+      const remaining = ((this.frames.length - i - 1) * avgFrameTime) / 1000;
+
       this.updateProgress(`检测姿势: 帧 ${i + 1} / ${this.frames.length}`, pct);
+      document.getElementById('dp-current').textContent = `${i + 1} / ${this.frames.length}`;
+      document.getElementById('dp-elapsed').textContent = this.formatTime(elapsed);
+      document.getElementById('dp-remaining').textContent = i > 0 ? `约 ${this.formatTime(remaining)}` : '计算中...';
+      document.getElementById('dp-perframe').textContent = `${avgFrameTime.toFixed(0)} ms`;
+      document.getElementById('dp-detected').textContent = `${detectedCount} / ${i + 1} 帧`;
+
+      await this.yieldToUI();
     }
 
+    if (this.cancelled) {
+      this.hideSection('processing');
+      document.getElementById('detail-progress').classList.add('hidden');
+      return;
+    }
+
+    document.getElementById('detail-progress').classList.add('hidden');
     this.updateProgress('计算姿势相似度...', 75);
+    await this.yieldToUI();
     this.similarityMatrix = PoseSimilarity.buildSimilarityMatrix(this.normalizedPoses);
 
     this.updateProgress('检测循环动画...', 85);
+    await this.yieldToUI();
     this.loops = LoopDetector.detectLoops(this.similarityMatrix, this.frames.length);
 
     this.updateProgress('完成！', 100);
@@ -1062,6 +1132,17 @@ class App {
     }, 500);
   }
 
+  yieldToUI() {
+    return new Promise(resolve => requestAnimationFrame(resolve));
+  }
+
+  formatTime(seconds) {
+    if (seconds < 60) return `${seconds.toFixed(1)} 秒`;
+    const m = Math.floor(seconds / 60);
+    const s = Math.round(seconds % 60);
+    return `${m} 分 ${s} 秒`;
+  }
+
   reset() {
     this.frames = [];
     this.landmarks = [];
@@ -1069,6 +1150,7 @@ class App {
     this.similarityMatrix = null;
     this.loops = [];
     this.currentFrame = 0;
+    this.cancelled = false;
     this.stopPlay();
   }
 
