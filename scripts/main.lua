@@ -171,8 +171,32 @@ local function mapToScreen(mx, my, camX, camY)
     end
 end
 
+--- 为透明背景图片填充纯色背景
+--- 在绘制图片之前先画一个纯色矩形，透明区域会显示背景色
+---@param vg userdata  NanoVG 上下文
+---@param x number     矩形左上角 X
+---@param y number     矩形左上角 Y
+---@param w number     矩形宽度
+---@param h number     矩形高度
+---@param r number     红色分量 (0-255)
+---@param g number     绿色分量 (0-255)
+---@param b number     蓝色分量 (0-255)
+---@param a number|nil 透明度 (0-255)，默认 255
+local function fillSolidBackground(vg, x, y, w, h, r, g, b, a)
+    nvgBeginPath(vg)
+    nvgRect(vg, x, y, w, h)
+    nvgFillColor(vg, nvgRGBA(r, g, b, a or 255))
+    nvgFill(vg)
+end
+
 --- 使用 NanoVG 绘制单个瓦片贴图
-local function drawImageTile(cx, cy, imgInfo, tileType, flipH)
+---@param cx number         绘制中心 X
+---@param cy number         绘制中心 Y
+---@param imgInfo table     图片信息 { w, h }
+---@param tileType table    瓦片类型定义
+---@param flipH boolean|nil 是否水平翻转
+---@param bgColor table|nil 背景色 { r, g, b, a? }，为 nil 时不填充背景
+local function drawImageTile(cx, cy, imgInfo, tileType, flipH, bgColor)
     if not tileType.imagePath then return end
 
     local imgHandle = getNvgImage(tileType.imagePath)
@@ -226,6 +250,11 @@ local function drawImageTile(cx, cy, imgInfo, tileType, flipH)
         nvgRotate(vg_, -math.pi / 4)
         if flipH then nvgScale(vg_, -1, 1) end
 
+        if bgColor then
+            fillSolidBackground(vg_, -drawW / 2, -drawH / 2, drawW, drawH,
+                bgColor.r, bgColor.g, bgColor.b, bgColor.a)
+        end
+
         -- 绘制图片：映射源区域到目标矩形
         local patScaleX = drawW / srcW
         local patScaleY = drawH / srcH
@@ -261,6 +290,16 @@ local function drawImageTile(cx, cy, imgInfo, tileType, flipH)
         nvgTranslate(vg_, drawX + drawW, drawY)
         nvgScale(vg_, -1, 1)
         nvgTranslate(vg_, 0, 0)
+    end
+
+    if bgColor then
+        if flipH then
+            fillSolidBackground(vg_, 0, 0, drawW, drawH,
+                bgColor.r, bgColor.g, bgColor.b, bgColor.a)
+        else
+            fillSolidBackground(vg_, drawX, drawY, drawW, drawH,
+                bgColor.r, bgColor.g, bgColor.b, bgColor.a)
+        end
     end
 
     -- 用 nvgImagePattern 将 spritesheet 中的源区域映射到目标矩形
